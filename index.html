@@ -63,6 +63,19 @@
 		background-color: grey;
 	}
 	
+	.rest_key{
+		width: 160px;
+		height: 28px;
+		background-color: white;
+		border: solid;
+		border-width: 1px;
+		font-size:bold;"
+	}
+	
+	.rest_key:active{
+		background-color: grey;
+	}
+	
 	#loading {
 		z-index: 998;
 		-moz-user-select: none;
@@ -202,9 +215,9 @@
 				<div class="button black_key" style="margin-left:136px;"></div>
 				<div class="button white_key" style="margin-left:144px;"></div>
 			</div>
-
 			<div id='tmp'></div>
 		</div>
+		<button class="rest_key" style="margin-left:170px;margin-top:5px" onclick="$('#nmn').val($('#nmn').val() + '0');">0</button>
 	</div>
 
 
