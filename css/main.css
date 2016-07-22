@@ -1,0 +1,113 @@
+body{
+  margin:0;
+  background-color: #f2f4f5;
+}
+.white_key {
+    width: 24px;
+    height: 150px;
+    position: absolute;
+    background-color: white;
+    border: solid;
+    border-width: 1px;
+    z-index: 1;
+}
+.white_key:active {
+    background-color: grey;
+}
+.black_key {
+    width: 16px;
+    height: 95px;
+    position: absolute;
+    background-color: black;
+    border: none;
+    z-index: 9;
+}
+.black_key:active {
+    background-color: grey;
+}
+.keyboard {
+    width: 168px;
+    height: 150px;
+    display: inline-block;
+    margin-top: 10px;
+    padding: 0;
+    position: relative;
+}
+.button {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    cursor: pointer;
+}
+.key_txt {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    position: absolute;
+    bottom: 0;
+    cursor: pointer;
+}
+.white_pressed {
+    background-color: grey;
+}
+.rest_key {
+    width: 160px;
+    height: 28px;
+    background-color: white;
+    border: solid;
+    border-width: 1px;
+    font-size: bold;
+    "
+
+}
+.rest_key:active {
+    background-color: grey;
+}
+#loading {
+    z-index: 998;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    transition: opacity 0.4s ease;
+    -webkit-transition: opacity 0.4s ease;
+}
+#loading_img {
+    margin: -150px 0 0 -150px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 999;
+}
+#wrapper {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    -webkit-transition: opacity 0.4s ease;
+}
+#top_bar{
+  position:fixed;
+  top:0;width:100%;
+  height:60px;
+  background-color:#259b24;
+  z-index:5;
+}
+#content_box{
+  width:70%;
+  margin:0 auto;
+}
+#pages{
+  min-width:3000px;
+  height:800px;
+  margin-top: 80px;
+}
+#pages .page {
+  width:400px;
+  height:90%;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right:10px;
+	padding:14px 20px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .05), 0 1px 4px 0 rgba(0, 0, 0, .08), 0 3px 1px -2px rgba(0, 0, 0, .2);
+	background-color: white;
+	border-radius:2px;
+}
