@@ -30,7 +30,7 @@ var Transformed_octave = $('#transformed_octave');
 
 for(var i = 0; i < 3; i++) {
 	for(var j = 0; j < 15; j++) {
-		$('#tmp').append('<audio src="piano/' + i + '' + hex[j] + '.mp3" preload="load" />')
+		$('#tmp').append('<audio src="piano/' + i + '' + hex[j] + '.mp3" preload />')
 	}
 }
 
