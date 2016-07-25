@@ -8,139 +8,134 @@
 		<link rel="stylesheet" type="text/css" href="css/main.css">
 	</head>
 
-	<body>
-		<div id="loading">
-			<img id="loading_img" src="img/loading.gif" />
-		</div>
-		<div id='wrapper'>
-			<div id="top_bar"></div>
-			<div id="content_box">
-				<table id="pages">
-					<tr class="page">
-						<audio id="audio1" src="piano/00.mp3"></audio>
-						<td>
-							<button onclick="start()" type="button">开始</button>
-							<button onclick="stop()" type="button">停止</button>
-							<br /> 状态：
-							<span id="status">停止</span>；进度：<span id="progress">总0/0，第0行，第0列</span>；播放文件：<span id="file">无</span>；音量：<span id="volume_display">f</span>；延时：<span id="tempo_display">0.5</span>秒
-							<br />
-							<br /> 音量（0-f，可大写，错误输入或本框无输入时默认为f，有输入但字符数小于音高框字符数时，不足部分默认为该框最后一个有效字符）
-							<br />
-							<textarea id="volume" placeholder="音量"></textarea>
-							<br />
-							<br /> 音高(0-f，可大写，默认f，播放到末尾时自动停止播放)
-							<br />
-							<textarea id="pitch" placeholder="音高"></textarea>
-							<br />
-							<br /> 八度(0-2，错误输入或不输入时默认为0)
-							<br />
-							<textarea id="octave" placeholder="八度"></textarea>
-							<br />
-							<br /> 延时(0-9分别对应0.2、0.3、0.333、0.4、0.5、0.6、0.7、0.8、0.9、1秒，错误输入或本框无输入时默认为4，即0.5秒，有输入但字符数小于音高框字符数时，不足部分默认为该框最后一个有效字符)
-							<br />
-							<textarea id="tempo" placeholder="延时"></textarea>
-							<br />
-						</td>
-					</tr>
-					<tr class="page">
-						<td>
-							<button onclick="transform()" type="button">简谱转换</button>
-							<br /> 简谱（0-7，C=1，在数字前加上#代表升高半音，八度默认为1，用圆括号()、方括号[]框住一个或多个数字分别代表低一个八度、高一个八度，暂不支持节拍,错误输入将输出无效）
-							<br />
-							<textarea id="nmn" placeholder="简谱"></textarea>
-							<br /> 转换结果：
-							<br /> 音高：
-							<span id="transformed_pitch"></span>
-							<br /> 八度：
-							<span id="transformed_octave"></span>
-							<br />
-							<br />
-							<button onclick="InverseTransform()" type="button">转换成简谱</button>
-							<br />将音高、八度输入框内容转换成简谱
-							<br />转换结果：<span id="inverseTransformed"></span>
-							<br />
-							<br />载入乐谱
-							<br />
-							<button onclick="paste_result()" type="button">简谱转换结果</button>
-							<button onclick="test_mp3()" type="button">测试</button>
-							<button onclick="xiaoxingxing()" type="button">小星星</button>
-							<button onclick="zhunishengrikuaile()" type="button">祝你生日快乐</button>
-							<br />
-						</td>
-					</tr>
-					<tr class="page">
-						<td>
-							<div>
-								点击琴键发声并将音符输入到简谱输入框中
-								<br />
-								<div class='keyboard'>
-									<div class="button white_key">
-										<div class='key_txt'>
-											&nbsp;
-											<br /> 1
-											<br /> ●
-										</div>
-									</div>
-									<div class="button black_key" style="margin-left:16px;"></div>
-									<div class="button white_key" style="margin-left:24px;"></div>
-									<div class="button black_key" style="margin-left:40px;"></div>
-									<div class="button white_key" style="margin-left:48px;"></div>
-									<div class="button white_key" style="margin-left:72px;"></div>
-									<div class="button black_key" style="margin-left:88px;"></div>
-									<div class="button white_key" style="margin-left:96px;"></div>
-									<div class="button black_key" style="margin-left:112px;"></div>
-									<div class="button white_key" style="margin-left:120px;"></div>
-									<div class="button black_key" style="margin-left:136px;"></div>
-									<div class="button white_key" style="margin-left:144px;"></div>
-								</div>
-								<div class='keyboard'>
-									<div class="button white_key">
-										<div class='key_txt'>
-											&nbsp;
-											<br /> 1
-											<br /> &nbsp;
-										</div>
-									</div>
-									<div class="button black_key" style="margin-left:16px;"></div>
-									<div class="button white_key" style="margin-left:24px;"></div>
-									<div class="button black_key" style="margin-left:40px;"></div>
-									<div class="button white_key" style="margin-left:48px;"></div>
-									<div class="button white_key" style="margin-left:72px;"></div>
-									<div class="button black_key" style="margin-left:88px;"></div>
-									<div class="button white_key" style="margin-left:96px;"></div>
-									<div class="button black_key" style="margin-left:112px;"></div>
-									<div class="button white_key" style="margin-left:120px;"></div>
-									<div class="button black_key" style="margin-left:136px;"></div>
-									<div class="button white_key" style="margin-left:144px;"></div>
-								</div>
-								<div class='keyboard'>
-									<div class="button white_key">
-										<div class='key_txt'>
-											●
-											<br /> 1
-											<br /> &nbsp;
-										</div>
-									</div>
-									<div class="button black_key" style="margin-left:16px;"></div>
-									<div class="button white_key" style="margin-left:24px;"></div>
-									<div class="button black_key" style="margin-left:40px;"></div>
-									<div class="button white_key" style="margin-left:48px;"></div>
-									<div class="button white_key" style="margin-left:72px;"></div>
-									<div class="button black_key" style="margin-left:88px;"></div>
-									<div class="button white_key" style="margin-left:96px;"></div>
-									<div class="button black_key" style="margin-left:112px;"></div>
-									<div class="button white_key" style="margin-left:120px;"></div>
-									<div class="button black_key" style="margin-left:136px;"></div>
-									<div class="button white_key" style="margin-left:144px;"></div>
-								</div>
-								<div id='tmp'></div>
-							</div>
-							<button class="rest_key" style="margin-left:170px;margin-top:5px" onclick="$('#nmn').val($('#nmn').val() + '0');">0</button>
-						</td>
-					</tr>
-				</table>
-			</div>
-		</div>
+<body>
+  <audio id="audio1" src="piano/00.mp3"></audio>
+  <div id="loading">
+    <img id="loading_img" src="img/loading.gif" />
+  </div>
+  <div id='wrapper'>
+    <div id="top_bar"></div>
+    <div id="content_box">
+      <div id="pages">
+        <div class="page page_big">演示区</div>
+        <div class="page">
+          <button onclick="start()" type="button">开始</button>
+          <button onclick="stop()" type="button">停止</button>
+          <br /> 状态：
+          <span id="status">停止</span>；进度：<span id="progress">总0/0，第0行，第0列</span>；播放文件：<span id="file">无</span>；音量：<span id="volume_display">f</span>；延时：<span id="tempo_display">0.5</span>秒
+          <br />
+          <br /> 音量（0-f，可大写，错误输入或本框无输入时默认为f，有输入但字符数小于音高框字符数时，不足部分默认为该框最后一个有效字符）
+          <br />
+          <textarea id="volume" placeholder="音量"></textarea>
+          <br />
+          <br /> 音高(0-f，可大写，默认f，播放到末尾时自动停止播放)
+          <br />
+          <textarea id="pitch" placeholder="音高"></textarea>
+          <br />
+          <br /> 八度(0-2，错误输入或不输入时默认为0)
+          <br />
+          <textarea id="octave" placeholder="八度"></textarea>
+          <br />
+          <br /> 延时(0-9分别对应0.2、0.3、0.333、0.4、0.5、0.6、0.7、0.8、0.9、1秒，错误输入或本框无输入时默认为4，即0.5秒，有输入但字符数小于音高框字符数时，不足部分默认为该框最后一个有效字符)
+          <br />
+          <textarea id="tempo" placeholder="延时"></textarea>
+          <br />
+        </div>
+        <div class="page page_big">
+          <div style="margin:0 auto;width:520px;height:220px;vertical-align:middle;">
+            点击琴键发声并将音符输入到简谱输入框中
+            <br />
+            <div class='keyboard'>
+              <div class="button white_key">
+                <div class='key_txt'>
+                  &nbsp;
+                  <br /> 1
+                  <br /> ●
+                </div>
+              </div>
+              <div class="button black_key" style="margin-left:16px;"></div>
+              <div class="button white_key" style="margin-left:24px;"></div>
+              <div class="button black_key" style="margin-left:40px;"></div>
+              <div class="button white_key" style="margin-left:48px;"></div>
+              <div class="button white_key" style="margin-left:72px;"></div>
+              <div class="button black_key" style="margin-left:88px;"></div>
+              <div class="button white_key" style="margin-left:96px;"></div>
+              <div class="button black_key" style="margin-left:112px;"></div>
+              <div class="button white_key" style="margin-left:120px;"></div>
+              <div class="button black_key" style="margin-left:136px;"></div>
+              <div class="button white_key" style="margin-left:144px;"></div>
+            </div>
+            <div class='keyboard'>
+              <div class="button white_key">
+                <div class='key_txt'>
+                  &nbsp;
+                  <br /> 1
+                  <br /> &nbsp;
+                </div>
+              </div>
+              <div class="button black_key" style="margin-left:16px;"></div>
+              <div class="button white_key" style="margin-left:24px;"></div>
+              <div class="button black_key" style="margin-left:40px;"></div>
+              <div class="button white_key" style="margin-left:48px;"></div>
+              <div class="button white_key" style="margin-left:72px;"></div>
+              <div class="button black_key" style="margin-left:88px;"></div>
+              <div class="button white_key" style="margin-left:96px;"></div>
+              <div class="button black_key" style="margin-left:112px;"></div>
+              <div class="button white_key" style="margin-left:120px;"></div>
+              <div class="button black_key" style="margin-left:136px;"></div>
+              <div class="button white_key" style="margin-left:144px;"></div>
+            </div>
+            <div class='keyboard'>
+              <div class="button white_key">
+                <div class='key_txt'>
+                  ●
+                  <br /> 1
+                  <br /> &nbsp;
+                </div>
+              </div>
+              <div class="button black_key" style="margin-left:16px;"></div>
+              <div class="button white_key" style="margin-left:24px;"></div>
+              <div class="button black_key" style="margin-left:40px;"></div>
+              <div class="button white_key" style="margin-left:48px;"></div>
+              <div class="button white_key" style="margin-left:72px;"></div>
+              <div class="button black_key" style="margin-left:88px;"></div>
+              <div class="button white_key" style="margin-left:96px;"></div>
+              <div class="button black_key" style="margin-left:112px;"></div>
+              <div class="button white_key" style="margin-left:120px;"></div>
+              <div class="button black_key" style="margin-left:136px;"></div>
+              <div class="button white_key" style="margin-left:144px;"></div>
+            </div>
+            <button class="rest_key" style="margin-left:172px;margin-top:5px" onclick="$('#nmn').val($('#nmn').val() + '0');">0</button>
+            <div id='tmp'></div>
+          </div>
+        </div>
+        <div class="page">
+          <button onclick="transform()" type="button">简谱转换</button>
+          <br /> 简谱（0-7，C=1，在数字前加上#代表升高半音，八度默认为1，用圆括号()、方括号[]框住一个或多个数字分别代表低一个八度、高一个八度，暂不支持节拍,错误输入将输出无效）
+          <br />
+          <textarea id="nmn" placeholder="简谱"></textarea>
+          <br /> 转换结果：
+          <br /> 音高：
+          <span id="transformed_pitch"></span>
+          <br /> 八度：
+          <span id="transformed_octave"></span>
+          <br />
+          <br />
+          <button onclick="InverseTransform()" type="button">转换成简谱</button>
+          <br />将音高、八度输入框内容转换成简谱
+          <br />转换结果：<span id="inverseTransformed"></span>
+          <br />
+          <br />载入乐谱
+          <br />
+          <button onclick="paste_result()" type="button">简谱转换结果</button>
+          <button onclick="test_mp3()" type="button">测试</button>
+          <button onclick="xiaoxingxing()" type="button">小星星</button>
+          <button onclick="zhunishengrikuaile()" type="button">祝你生日快乐</button>
+          <br />
+        </div>
+      </div>
+    </div>
+  </div>
 		
 		<script src="js/main.js"></script>
 	</body>

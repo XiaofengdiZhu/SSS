@@ -58,7 +58,7 @@ body{
     border: solid;
     border-width: 1px;
     font-size: bold;
-    "
+  }
 
 }
 .rest_key:active {
@@ -92,17 +92,19 @@ body{
   z-index:5;
 }
 #content_box{
-  width:70%;
+  width:2300px;
   margin:0 auto;
+  margin-left: 50px
 }
 #pages{
-  min-width:3000px;
-  height:800px;
+  height:700px;
   margin-top: 80px;
 }
 #pages .page {
-  width:400px;
-  height:90%;
+  display: inline-block;
+  vertical-align:top;
+  height:100%;
+  width:300px;
   margin-top: 10px;
   margin-left: 10px;
   margin-right:10px;
@@ -110,4 +112,7 @@ body{
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .05), 0 1px 4px 0 rgba(0, 0, 0, .08), 0 3px 1px -2px rgba(0, 0, 0, .2);
 	background-color: white;
 	border-radius:2px;
+}
+#pages .page_big{
+  width:700px;
 }
