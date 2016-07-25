@@ -1,11 +1,27 @@
-html{
-  height:100%;
+* {
+    margin: 0;
+    padding: 0;
 }
-body{
-  margin:0;
-  height:100%;
-  background-color: #f2f4f5;
-  overflow:hidden;
+html {
+    height: 100%;
+}
+body {
+    height: 100%;
+    background-color: #f2f4f5;
+    overflow: hidden;
+}
+.page_changer{
+  position: absolute;
+  top:10px;
+  left:50%;
+  width: 40px;
+  width: 40px;
+  opacity: 0.6;
+  transition: opacity 0.5s ease;
+  -webkit-transition: opacity 0.5s ease;
+}
+.page_changer_active{
+  opacity: 1;
 }
 .white_key {
     width: 24px;
@@ -63,7 +79,7 @@ body{
     border: solid;
     border-width: 1px;
     font-size: bold;
-  }
+}
 
 }
 .rest_key:active {
@@ -84,43 +100,52 @@ body{
     z-index: 999;
 }
 #wrapper {
-    height:100%;
+    height: 100%;
     display: none;
     opacity: 0;
     transition: opacity 0.4s ease;
     -webkit-transition: opacity 0.4s ease;
 }
-#top_bar{
-  position:fixed;
-  top:0;width:100%;
-  height:60px;
-  background-color:#259b24;
-  z-index:5;
+#top_bar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #259b24;
+    z-index: 5;
 }
-#content_box{
-  width:1130px;
-  height:100%;
-  margin:0 auto;
-  margin-top: 80px;
-  overflow:hidden;
+#content_box {
+    width: 1124px;
+    height: 100%;
+    margin: 0 auto;
+    margin-top: 80px;
+    overflow: hidden;
+    position: relative;
 }
-#pages{
-  width:2300px;
-  height:700px;
+#pages {
+    width: 2270px;
+    height: 700px;
+    position: absolute;
+    transition: left 0.5s ease;
+    -webkit-transition: left 0.5s ease;
 }
 #pages .page {
-  display: inline-block;
-  vertical-align:top;
-  height:100%;
-  width:300px;
-  margin-top: 10px;
-  margin-left: 10px;
-  margin-right:10px;
-	padding:14px 20px;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .05), 0 1px 4px 0 rgba(0, 0, 0, .08), 0 3px 1px -2px rgba(0, 0, 0, .2);
-	background-color: white;
-	border-radius:2px;
+    display: inline-block;
+    vertical-align: top;
+    height: 100%;
+    width: 300px;
+    margin: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .05), 0 1px 4px 0 rgba(0, 0, 0, .08), 0 3px 1px -2px rgba(0, 0, 0, .2);
+    background-color: white;
+    border-radius: 2px;
 }
-#pages .page_big{
-  width:700px;
+#pages .page_big {
+    width: 700px;
+}
+.page_first{
+  left:0;
+}
+.page_second{
+  left:-1135px;
 }

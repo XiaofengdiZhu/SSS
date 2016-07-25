@@ -1,3 +1,7 @@
+var Tmp = $('#tmp');
+var Pages = $('#pages');
+var Page_changer_1 = $('#page_changer_1');
+var Page_changer_2 = $('#page_changer_2');
 var string_volume = "f";
 var string_pitch = "0";
 var string_octave = "0";
@@ -30,12 +34,12 @@ var Transformed_octave = $('#transformed_octave');
 
 for(var i = 0; i < 3; i++) {
 	for(var j = 0; j < 15; j++) {
-		$('#tmp').append('<audio src="piano/' + i + '' + hex[j] + '.mp3" preload />')
+		Tmp.append('<audio src="piano/' + i + '' + hex[j] + '.mp3" preload />')
 	}
 }
 
 // 音频加载完成时隐藏loading、显示wrapper
-$('#tmp').children('audio:last').on('canplaythrough', function() {
+Tmp.children('audio:last').on('canplaythrough', function() {
 	$('#loading').css('opacity', '0');
 	$('#loading').one('transitionend webkitTransitionEnd', function() {
 		$('#loading').css('display', 'none');
@@ -103,6 +107,19 @@ for(var i = 0; i < $('.key_txt').length; i++) {
 	$('.key_txt').eq(i).on('mouseup', function() {
 		$(this).parent().removeClass('white_pressed');
 	})
+}
+
+function next_page(){
+	Pages.addClass('page_second');
+	Pages.removeClass('page_first');
+	Page_changer_1.removeClass('page_changer_active');
+	Page_changer_2.addClass('page_changer_active');
+}
+function prev_page(){
+	Pages.addClass('page_first');
+	Pages.removeClass('page_second');
+	Page_changer_2.removeClass('page_changer_active');
+	Page_changer_1.addClass('page_changer_active');
 }
 
 function start() {

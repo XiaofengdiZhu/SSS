@@ -11,12 +11,15 @@
 <body>
   <audio id="audio1" src="piano/00.mp3"></audio>
   <div id="loading">
-    <img id="loading_img" src="img/loading.gif" />
+    <img id="loading_img" src="img/logo.png" />
   </div>
   <div id='wrapper'>
-    <div id="top_bar"></div>
+    <div id="top_bar">
+      <img id="page_changer_1" class="page_changer page_changer_active" src="img/page_first.png" onclick="prev_page()" style="margin-left:-100px;">
+      <img id="page_changer_2" class="page_changer" src="img/page_second.png" onclick="next_page()" style="margin-left:60px;">
+    </div>
     <div id="content_box">
-      <div id="pages">
+      <div id="pages" class="page_first">
         <div class="page page_big">
           状态：<span id="status">停止</span>；进度：<span id="progress">总0/0，第0行，第0列</span>；播放文件：<span id="file">无</span>；音量：<span id="volume_display">f</span>；延时：<span id="tempo_display">0.5</span>秒
           <br />
@@ -40,6 +43,11 @@
           <br /> 延时(0-9分别对应0.2、0.3、0.333、0.4、0.5、0.6、0.7、0.8、0.9、1秒，错误输入或本框无输入时默认为4，即0.5秒，有输入但字符数小于音高框字符数时，不足部分默认为该框最后一个有效字符)
           <br />
           <textarea id="tempo" placeholder="延时"></textarea>
+          <br />
+          <br />
+          <button onclick="InverseTransform()" type="button">转换成简谱</button>
+          <br />将音高、八度输入框内容转换成简谱
+          <br />转换结果：<span id="inverseTransformed"></span>
           <br />
         </div>
         <div class="page page_big" style="position:relative;">
@@ -118,11 +126,6 @@
           <span id="transformed_pitch"></span>
           <br /> 八度：
           <span id="transformed_octave"></span>
-          <br />
-          <br />
-          <button onclick="InverseTransform()" type="button">转换成简谱</button>
-          <br />将音高、八度输入框内容转换成简谱
-          <br />转换结果：<span id="inverseTransformed"></span>
           <br />
           <br />载入乐谱
           <br />
