@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="utf-8">
-		<title>SSS-β</title>
-		<script src="js/jquery.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="css/main.css">
-	</head>
+<head>
+  <meta charset="utf-8">
+  <title>SSS-β</title>
+  <script src="js/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
 
 <body>
   <audio id="audio1" src="piano/00.mp3"></audio>
@@ -17,12 +17,13 @@
     <div id="top_bar"></div>
     <div id="content_box">
       <div id="pages">
-        <div class="page page_big">演示区</div>
+        <div class="page page_big">
+          状态：<span id="status">停止</span>；进度：<span id="progress">总0/0，第0行，第0列</span>；播放文件：<span id="file">无</span>；音量：<span id="volume_display">f</span>；延时：<span id="tempo_display">0.5</span>秒
+          <br />
+        </div>
         <div class="page">
           <button onclick="start()" type="button">开始</button>
           <button onclick="stop()" type="button">停止</button>
-          <br /> 状态：
-          <span id="status">停止</span>；进度：<span id="progress">总0/0，第0行，第0列</span>；播放文件：<span id="file">无</span>；音量：<span id="volume_display">f</span>；延时：<span id="tempo_display">0.5</span>秒
           <br />
           <br /> 音量（0-f，可大写，错误输入或本框无输入时默认为f，有输入但字符数小于音高框字符数时，不足部分默认为该框最后一个有效字符）
           <br />
@@ -41,8 +42,8 @@
           <textarea id="tempo" placeholder="延时"></textarea>
           <br />
         </div>
-        <div class="page page_big">
-          <div style="margin:0 auto;width:520px;height:220px;vertical-align:middle;">
+        <div class="page page_big" style="position:relative;">
+          <div style="width:520px;height:220px;position:absolute;top:50%;margin-top:-110px;left:50%;margin-left:-260px;">
             点击琴键发声并将音符输入到简谱输入框中
             <br />
             <div class='keyboard'>
@@ -64,8 +65,7 @@
               <div class="button white_key" style="margin-left:120px;"></div>
               <div class="button black_key" style="margin-left:136px;"></div>
               <div class="button white_key" style="margin-left:144px;"></div>
-            </div>
-            <div class='keyboard'>
+            </div><div class='keyboard'>
               <div class="button white_key">
                 <div class='key_txt'>
                   &nbsp;
@@ -84,8 +84,7 @@
               <div class="button white_key" style="margin-left:120px;"></div>
               <div class="button black_key" style="margin-left:136px;"></div>
               <div class="button white_key" style="margin-left:144px;"></div>
-            </div>
-            <div class='keyboard'>
+            </div><div class='keyboard'>
               <div class="button white_key">
                 <div class='key_txt'>
                   ●
@@ -136,7 +135,9 @@
       </div>
     </div>
   </div>
-		
-		<script src="js/main.js"></script>
-	</body>
+
+
+  <script src="js/main.js"></script>
+</body>
+
 </html>
