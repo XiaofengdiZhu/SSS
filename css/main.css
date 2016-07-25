@@ -5,6 +5,7 @@ body{
   margin:0;
   height:100%;
   background-color: #f2f4f5;
+  overflow:hidden;
 }
 .white_key {
     width: 24px;
@@ -97,7 +98,7 @@ body{
   z-index:5;
 }
 #content_box{
-  width:800px;
+  width:1130px;
   height:100%;
   margin:0 auto;
   margin-top: 80px;
