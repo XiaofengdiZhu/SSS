@@ -8,15 +8,15 @@
   <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 
-<body>
+<body onwheel="change_page()">
   <audio id="audio1" src="piano/00.mp3"></audio>
   <div id="loading">
     <img id="loading_img" src="img/logo.png" />
   </div>
   <div id='wrapper'>
     <div id="top_bar">
-      <img id="page_changer_1" class="page_changer page_changer_active" src="img/page_first.png" onclick="prev_page()" style="margin-left:-100px;">
-      <img id="page_changer_2" class="page_changer" src="img/page_second.png" onclick="next_page()" style="margin-left:60px;">
+      <img id="page_changer_1" class="page_changer page_changer_active" src="img/page_first.png" onclick="change_page()" style="margin-left:-100px;">
+      <img id="page_changer_2" class="page_changer" src="img/page_second.png" onclick="change_page()" style="margin-left:60px;">
     </div>
     <div id="content_box">
       <div id="pages" class="page_first">

@@ -1,4 +1,5 @@
 var Tmp = $('#tmp');
+var now_page = 0;
 var Pages = $('#pages');
 var Page_changer_1 = $('#page_changer_1');
 var Page_changer_2 = $('#page_changer_2');
@@ -108,18 +109,21 @@ for(var i = 0; i < $('.key_txt').length; i++) {
 		$(this).parent().removeClass('white_pressed');
 	})
 }
-
-function next_page(){
-	Pages.addClass('page_second');
-	Pages.removeClass('page_first');
-	Page_changer_1.removeClass('page_changer_active');
-	Page_changer_2.addClass('page_changer_active');
-}
-function prev_page(){
-	Pages.addClass('page_first');
-	Pages.removeClass('page_second');
-	Page_changer_2.removeClass('page_changer_active');
-	Page_changer_1.addClass('page_changer_active');
+function change_page(){
+	if(now_page == 0){
+		Pages.addClass('page_second');
+		Pages.removeClass('page_first');
+		Page_changer_1.removeClass('page_changer_active');
+		Page_changer_2.addClass('page_changer_active');
+		setTimeout("now_page = 1;", 500);
+	}
+	if(now_page == 1){
+		Pages.addClass('page_first');
+		Pages.removeClass('page_second');
+		Page_changer_2.removeClass('page_changer_active');
+		Page_changer_1.addClass('page_changer_active');
+		setTimeout("now_page = 0;", 500);
+	}
 }
 
 function start() {
