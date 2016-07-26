@@ -10,18 +10,18 @@ body {
     background-color: #f2f4f5;
     overflow: hidden;
 }
-.page_changer{
-  position: absolute;
-  top:10px;
-  left:50%;
-  width: 40px;
-  width: 40px;
-  opacity: 0.6;
-  transition: opacity 0.5s ease;
-  -webkit-transition: opacity 0.5s ease;
+.page_changer {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    width: 40px;
+    width: 40px;
+    opacity: 0.6;
+    transition: opacity 0.5s ease;
+    -webkit-transition: opacity 0.5s ease;
 }
-.page_changer_active{
-  opacity: 1;
+.page_changer_active {
+    opacity: 1;
 }
 .white_key {
     width: 24px;
@@ -130,6 +130,7 @@ body {
     -webkit-transition: left 0.5s ease;
 }
 #pages .page {
+    position: relative;
     display: inline-block;
     vertical-align: top;
     height: 100%;
@@ -139,13 +140,14 @@ body {
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .05), 0 1px 4px 0 rgba(0, 0, 0, .08), 0 3px 1px -2px rgba(0, 0, 0, .2);
     background-color: white;
     border-radius: 2px;
+    overflow: auto;
 }
 #pages .page_big {
     width: 700px;
 }
-.page_first{
-  left:0;
+.page_first {
+    left: 0;
 }
-.page_second{
-  left:-1135px;
+.page_second {
+    left: -1135px;
 }

@@ -33,8 +33,8 @@ var Transformed_octave = $('#transformed_octave');
 
 // 预加载音频
 
-for(var i = 0; i < 3; i++) {
-	for(var j = 0; j < 15; j++) {
+for (var i = 0; i < 3; i++) {
+	for (var j = 0; j < 15; j++) {
 		Tmp.append('<audio src="piano/' + i + '' + hex[j] + '.mp3" preload />')
 	}
 }
@@ -72,10 +72,10 @@ var mapping = {
 }
 
 var Keyboards = $('.keyboard');
-for(var key_octave = 0; key_octave < 3; key_octave++) {
+for (var key_octave = 0; key_octave < 3; key_octave++) {
 	var Keyboard = Keyboards.eq(key_octave);
 
-	for(var key_pitch = 0; key_pitch < 12; key_pitch++) {
+	for (var key_pitch = 0; key_pitch < 12; key_pitch++) {
 		Keyboard.children('.button').eq(key_pitch).attr('id', key_octave + '' + hex[key_pitch]);
 		Keyboard.children('.button').eq(key_pitch).on('click', function() {
 			// 播放音频
@@ -83,7 +83,7 @@ for(var key_octave = 0; key_octave < 3; key_octave++) {
 			Audio1[0].play();
 
 			// 写入简谱
-			switch(this.id.substr(0, 1)) {
+			switch (this.id.substr(0, 1)) {
 				case '0':
 					Nmn.val(Nmn.val() + "(" + mapping[this.id.substr(1, 1)] + ")");
 					break;
@@ -101,7 +101,7 @@ for(var key_octave = 0; key_octave < 3; key_octave++) {
 }
 
 // 为有文字的白键添加按下效果（解决IE按在文字div上，白键无active效果的问题）
-for(var i = 0; i < $('.key_txt').length; i++) {
+for (var i = 0; i < $('.key_txt').length; i++) {
 	$('.key_txt').eq(i).on('mousedown', function() {
 		$(this).parent().addClass('white_pressed');
 	})
@@ -109,15 +109,16 @@ for(var i = 0; i < $('.key_txt').length; i++) {
 		$(this).parent().removeClass('white_pressed');
 	})
 }
-function change_page(){
-	if(now_page == 0){
+
+function change_page() {
+	if (now_page == 0) {
 		Pages.addClass('page_second');
 		Pages.removeClass('page_first');
 		Page_changer_1.removeClass('page_changer_active');
 		Page_changer_2.addClass('page_changer_active');
 		setTimeout("now_page = 1;", 500);
 	}
-	if(now_page == 1){
+	if (now_page == 1) {
 		Pages.addClass('page_first');
 		Pages.removeClass('page_second');
 		Page_changer_2.removeClass('page_changer_active');
@@ -127,27 +128,27 @@ function change_page(){
 }
 
 function start() {
-	stop();
+	reset();
 	string_volume = Volume.val().toLowerCase();
 	string_pitch = Pitch.val().toLowerCase();
 	string_octave = Octave.val();
 	string_tempo = Tempo.val();
 	length_pitch = string_pitch.length;
-	if(length_pitch !== 0) playAudio();
+	if (length_pitch !== 0) playAudio();
 }
 
 function playAudio() {
-	if(hex.indexOf(string_volume[now_node]) != -1) now_volume = string_volume[now_node];
-	if(hex.indexOf(string_pitch[now_node]) != -1) now_pitch = string_pitch[now_node];
+	if (hex.indexOf(string_volume[now_node]) != -1) now_volume = string_volume[now_node];
+	if (hex.indexOf(string_pitch[now_node]) != -1) now_pitch = string_pitch[now_node];
 	else now_pitch = "f";
-	if("012".indexOf(string_octave[now_node]) != -1) now_octave = string_octave[now_node];
+	if ("012".indexOf(string_octave[now_node]) != -1) now_octave = string_octave[now_node];
 	else now_octave = "0";
-	if(dec.indexOf(string_tempo[now_node]) != -1) {
+	if (dec.indexOf(string_tempo[now_node]) != -1) {
 		now_tempo = string_tempo[now_node];
 		now_time_tempo = time_tempo[parseInt(now_tempo)];
 	}
 	Audio1[0].volume = parseInt(now_volume, 16) / 15;
-	if(now_pitch.indexOf("f") == -1) {
+	if (now_pitch.indexOf("f") == -1) {
 		Audio1.attr('src', 'piano/' + now_octave + now_pitch + '.mp3');
 		Audio1[0].play();
 	}
@@ -156,14 +157,22 @@ function playAudio() {
 	Volume_display.text(now_volume);
 	Tempo_display.text(now_time_tempo / 1000);
 	now_node++;
-	if(now_node >= length_pitch) {
+	if (now_node >= length_pitch) {
 		Audio1.one("ended", stop);
 		return;
 	}
 	timeout = setTimeout("playAudio()", now_time_tempo);
 }
 
-function stop() {
+function pause() {
+	clearTimeout(timeout);
+}
+
+function continue_play() {
+	timeout = setTimeout("playAudio()", now_time_tempo);
+}
+
+function reset() {
 	clearTimeout(timeout);
 	now_node = 0;
 	now_volume = "f";
@@ -223,8 +232,8 @@ function InverseTransform() {
 	var string_pitch_tempo = Pitch.val().toLowerCase();
 	var string_octave_tempo = Octave.val();
 	var length = string_pitch_tempo.length;
-	for(var i = 0; i < length; i++) {
-		switch(string_octave_tempo[i]) {
+	for (var i = 0; i < length; i++) {
+		switch (string_octave_tempo[i]) {
 			case '0':
 				InverseTransformed.text(InverseTransformed.text() + "(" + mapping[string_pitch_tempo[i]] + ")");
 				break;

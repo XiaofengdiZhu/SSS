@@ -23,10 +23,13 @@
         <div class="page page_big">
           状态：<span id="status">停止</span>；进度：<span id="progress">总0/0，第0行，第0列</span>；播放文件：<span id="file">无</span>；音量：<span id="volume_display">f</span>；延时：<span id="tempo_display">0.5</span>秒
           <br />
+          <img src="img/SoundGenerator.png" style="position:absolute;top:50%;left:50%;margin-top:-192px;margin-left:-192px;">
         </div>
         <div class="page">
           <button onclick="start()" type="button">开始</button>
-          <button onclick="stop()" type="button">停止</button>
+          <button onclick="reset()" type="button">停止</button>
+          <button onclick="pause()" type="button">暂停</button>
+          <button onclick="continue_play()" type="button">继续</button>
           <br />
           <br /> 音量（0-f，可大写，错误输入或本框无输入时默认为f，有输入但字符数小于音高框字符数时，不足部分默认为该框最后一个有效字符）
           <br />
