@@ -10,81 +10,6 @@ body {
     background-color: #f2f4f5;
     overflow: hidden;
 }
-.page_changer {
-    position: absolute;
-    top: 10px;
-    left: 50%;
-    width: 40px;
-    width: 40px;
-    opacity: 0.6;
-    transition: opacity 0.5s ease;
-    -webkit-transition: opacity 0.5s ease;
-}
-.page_changer_active {
-    opacity: 1;
-}
-.white_key {
-    width: 24px;
-    height: 150px;
-    position: absolute;
-    background-color: white;
-    border: solid;
-    border-width: 1px;
-    z-index: 1;
-}
-.white_key:active {
-    background-color: grey;
-}
-.black_key {
-    width: 16px;
-    height: 95px;
-    position: absolute;
-    background-color: black;
-    border: none;
-    z-index: 9;
-}
-.black_key:active {
-    background-color: grey;
-}
-.keyboard {
-    width: 168px;
-    height: 150px;
-    display: inline-block;
-    margin-top: 10px;
-    padding: 0;
-    position: relative;
-}
-.button {
-    display: inline-block;
-    margin: 0;
-    padding: 0;
-    top: 0;
-    cursor: pointer;
-}
-.key_txt {
-    width: 100%;
-    text-align: center;
-    font-weight: bold;
-    position: absolute;
-    bottom: 0;
-    cursor: pointer;
-}
-.white_pressed {
-    background-color: grey;
-}
-.rest_key {
-    width: 160px;
-    height: 28px;
-    background-color: white;
-    border: solid;
-    border-width: 1px;
-    font-size: bold;
-}
-
-}
-.rest_key:active {
-    background-color: grey;
-}
 #loading {
     z-index: 998;
     -moz-user-select: none;
@@ -150,4 +75,110 @@ body {
 }
 .page_second {
     left: -1135px;
+}
+.page_changer {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    width: 40px;
+    width: 40px;
+    opacity: 0.6;
+    transition: opacity 0.5s ease;
+    -webkit-transition: opacity 0.5s ease;
+}
+.page_changer_active {
+    opacity: 1;
+}
+.seg_v {
+	width: 16px;
+	height: 32px;
+	background: white;
+	position: absolute;
+  opacity: 0;
+  transition: opacity 0.1s ease;
+  -webkit-transition: opacity 0.1s ease;
+}
+.seg_h {
+	width: 48px;
+	height: 16px;
+	left: 16px;
+	background: white;
+	position: absolute;
+  opacity: 0;
+  transition: opacity 0.1s ease;
+  -webkit-transition: opacity 0.1s ease;
+}
+.seven_seg {
+	position: relative;
+	width: 78px;
+	height: 109px;
+	display: inline-block;
+	margin: 5px;
+}
+.seg_active {
+  opacity: 1;
+  transition: opacity 0.1s ease;
+  -webkit-transition: opacity 0.1s ease;
+}
+.white_key {
+    width: 24px;
+    height: 150px;
+    position: absolute;
+    background-color: white;
+    border: solid;
+    border-width: 1px;
+    z-index: 1;
+}
+.white_key:active {
+    background-color: grey;
+}
+.black_key {
+    width: 16px;
+    height: 95px;
+    position: absolute;
+    background-color: black;
+    border: none;
+    z-index: 9;
+}
+.black_key:active {
+    background-color: grey;
+}
+.keyboard {
+    width: 168px;
+    height: 150px;
+    display: inline-block;
+    margin-top: 10px;
+    padding: 0;
+    position: relative;
+}
+.button {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    cursor: pointer;
+}
+.key_txt {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    position: absolute;
+    bottom: 0;
+    cursor: pointer;
+}
+.white_pressed {
+    background-color: grey;
+}
+.rest_key {
+    width: 160px;
+    height: 28px;
+    background-color: white;
+    border: solid;
+    border-width: 1px;
+    font-size: bold;
+}
+
+}
+.rest_key:active {
+    background-color: grey;
 }

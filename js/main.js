@@ -71,6 +71,25 @@ var mapping = {
 	"f": "0"
 }
 
+var seg_list = {
+	"0": "012456",
+	"1": "25",
+	"2": "02346",
+	"3": "02356",
+	"4": "1235",
+	"5": "01356",
+	"6": "013456",
+	"7": "0125",
+	"8": "0123456",
+	"9": "012356",
+	"a": "012345",
+	"b": "13456",
+	"c": "0146",
+	"d": "23456",
+	"e": "01346",
+	"f": "0134"
+}
+
 var Keyboards = $('.keyboard');
 for (var key_octave = 0; key_octave < 3; key_octave++) {
 	var Keyboard = Keyboards.eq(key_octave);
@@ -156,6 +175,9 @@ function playAudio() {
 	File_display.text('piano/' + now_octave + now_pitch + '.mp3');
 	Volume_display.text(now_volume);
 	Tempo_display.text(now_time_tempo / 1000);
+	segShow('#seg_seven_volume', now_volume);
+	segShow('#seg_seven_pitch', now_pitch);
+	segShow('#seg_seven_octave', now_octave);
 	now_node++;
 	if (now_node >= length_pitch) {
 		Audio1.one("ended", stop);
@@ -184,6 +206,9 @@ function reset() {
 	File_display.text("无");
 	Volume_display.text("f");
 	Tempo_display.text("0.5");
+	segClr("#seg_seven_volume");
+	segClr("#seg_seven_pitch");
+	segClr("#seg_seven_octave");
 }
 
 function transform() {
@@ -270,4 +295,15 @@ function zhunishengrikuaile() {
 	Octave.val("0000100000011000111000111111");
 	Tempo.val("457777745777774577747745777");
 	Nmn.val("(5565)1(705565)21(055)531(760)443121");
+}
+
+function segShow($target, character) {
+	segClr($target);
+	for (var i = 0; i < seg_list[character].length; i++) {
+		$($target).children().eq(seg_list[character][i]).addClass('seg_active');
+	}
+}
+
+function segClr($target) {
+	$($target).children().removeClass('seg_active');
 }
