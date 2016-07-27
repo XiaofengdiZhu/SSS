@@ -30,6 +30,7 @@ var Progress_display = $('#progress');
 var Nmn = $('#nmn');
 var Transformed_pitch = $('#transformed_pitch');
 var Transformed_octave = $('#transformed_octave');
+var InverseTransformed = $('#inverseTransformed');
 
 // 预加载音频
 
@@ -50,6 +51,16 @@ Tmp.children('audio:last').on('canplaythrough', function() {
 		}, 1)
 	})
 })
+
+$("textarea").attr("oninput","this.style.height=this.scrollHeight + 'px';");
+$(".button_md").on("click",function(){
+	$(this).append('<div class=\'dot\' style=\'top:50%;left:50%;\'></div>');
+	setTimeout(function(){$(".dot").first().remove();}, 1000);
+});
+$("#keyboards").on("click",function(){
+	$(this).append('<div class=\'dot\' style=\'top:50%;left:50%;\'></div>');
+	setTimeout(function(){$(".dot").first().remove();}, 1000);
+});
 
 // 对应关系
 var mapping = {
@@ -115,6 +126,7 @@ for (var key_octave = 0; key_octave < 3; key_octave++) {
 					Nmn.val(Nmn.val() + "[" + mapping[this.id.substr(1, 1)] + "]");
 					break;
 			}
+			Nmn[0].style.height=Nmn[0].scrollHeight + 'px';
 		})
 	}
 }
@@ -254,6 +266,7 @@ function transform_octave(string) {
 }
 
 function InverseTransform() {
+	InverseTransformed.text("");
 	var string_pitch_tempo = Pitch.val().toLowerCase();
 	var string_octave_tempo = Octave.val();
 	var length = string_pitch_tempo.length;
@@ -268,8 +281,11 @@ function InverseTransform() {
 			case '2':
 				InverseTransformed.text(InverseTransformed.text() + "[" + mapping[string_pitch_tempo[i]] + "]");
 				break;
+			default:
+				InverseTransformed.text(InverseTransformed.text() + mapping[string_pitch_tempo[i]]);
 		}
 	}
+	return 0;
 }
 
 function paste_result() {
