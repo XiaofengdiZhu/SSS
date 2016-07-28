@@ -52,15 +52,60 @@ Tmp.children('audio:last').on('canplaythrough', function() {
 	})
 })
 
-$("textarea").attr("oninput","this.style.height=this.scrollHeight + 'px';");
-$(".button_md").on("click",function(){
-	$(this).append('<div class=\'dot\' style=\'top:50%;left:50%;\'></div>');
-	setTimeout(function(){$(".dot").first().remove();}, 1000);
+$('textarea').attr('oninput','this.style.height=this.scrollHeight + "px"');
+
+
+// 按钮水波纹效果
+$(".button_md, .button").on('click', function(){		
+	if($(this).width() > $(this).height()){
+		var radius = $(this).width();
+	}
+	else {
+		var radius = $(this).height();
+	}
+	
+	$(this).append('<div class="dot" style="top:' + getMousePos('y') + 'px; left:' + getMousePos('x') + 'px;"></div>')
+	
+	// 延迟1ms使transition生效
+	var obj = $(this);
+	setTimeout(function(){
+		obj.children('.dot:last').css({
+			'box-shadow': '0 0 0 ' + radius + 'px rgba(66, 166, 223, 0)',
+			'background': 'rgba(66, 166, 223, 0)' 
+		})
+	}, 1)
+	
+	// 动画结束后移除.dot
+	$(this).children('.dot:last').one('transitionend webkitTransitionEnd', function(){
+		$(this).remove()
+	})	
 });
-$("#keyboards").on("click",function(){
-	$(this).append('<div class=\'dot\' style=\'top:50%;left:50%;\'></div>');
-	setTimeout(function(){$(".dot").first().remove();}, 1000);
-});
+
+
+/**
+ * 获取鼠标点击相对容器的位置
+ */
+function getMousePos(axis, event) {
+	var e = event || window.event;
+	var obj = e.target;
+	if(obj.className == 'dot'){
+		obj = obj.parentElement;
+	}
+
+	// 目标元素距窗口边框距离
+	var Left=obj.offsetLeft, Top = obj.offsetTop;
+	while(obj.offsetParent != null){
+		obj = obj.offsetParent;   
+		Left += obj.offsetLeft;  
+		Top += obj.offsetTop;
+	}
+	
+	var x = e.clientX - Left;
+	var y = e.clientY - Top;
+	
+	return {'x':x, 'y':y}[axis];
+}
+
 
 // 对应关系
 var mapping = {
