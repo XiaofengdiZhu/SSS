@@ -225,6 +225,8 @@ function start() {
 		playToggle.css('background', 'url(img/pause.png)');
 		isPlaying = true;
 		isPause = false;
+		$('.lockable').attr('disabled', 'disabled');
+		isLock = true;
 	}
 }
 
@@ -415,19 +417,11 @@ var isLock = false;
 
 playToggle.on('click', function(){
 	// 正在播放时
-	if(isPlaying){
-		pause();
-	}
+	if(isPlaying) pause();
 	// 暂停时
-	else if(isPause){
-		continue_play();
-	}
+	else if(isPause) continue_play();
 	// 停止时
-	else {
-		start();
-		$('.lockable').attr('disabled', 'disabled');
-		isLock = true;
-	}
+	else start();
 })
 
 stopBtn.on('click', function(){
