@@ -32,8 +32,13 @@ var Transformed_pitch = $('#transformed_pitch');
 var Transformed_octave = $('#transformed_octave');
 var InverseTransformed = $('#inverseTransformed');
 
-// 预加载音频
+// loading渐入
+setTimeout(function(){
+	$('#loading_img').css('opacity', 1)
+}, 1)
 
+
+// 预加载音频
 for (var i = 0; i < 3; i++) {
 	for (var j = 0; j < 15; j++) {
 		Tmp.append('<audio src="piano/' + i + '' + hex[j] + '.mp3" preload />')
@@ -42,14 +47,17 @@ for (var i = 0; i < 3; i++) {
 
 // 音频加载完成时隐藏loading、显示wrapper
 Tmp.children('audio:last').on('canplaythrough', function() {
-	$('#loading').css('opacity', '0');
-	$('#loading').one('transitionend webkitTransitionEnd', function() {
-		$('#loading').css('display', 'none');
-		$('#wrapper').css('display', 'block');
-		setTimeout(function() {
-			$('#wrapper').css('opacity', '1');
-		}, 1)
-	})
+	setTimeout(function(){
+		$('#loading').css('opacity', '0');
+		$('#loading').one('transitionend webkitTransitionEnd', function() {
+			$('#loading').css('display', 'none');
+			$('#wrapper').css('display', 'block');
+			setTimeout(function() {
+				$('#wrapper').css('opacity', '1');
+			}, 1)
+		})
+	}, 240)
+	
 })
 
 $('textarea').attr('oninput','this.style.height=this.scrollHeight + "px"');
