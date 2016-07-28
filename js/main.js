@@ -56,29 +56,29 @@ $('textarea').attr('oninput','this.style.height=this.scrollHeight + "px"');
 
 
 // 按钮水波纹效果
-$(".button_md, .button").on('click', function(){		
+$(".button_md, .button").on('click', function(){
 	if($(this).width() > $(this).height()){
 		var radius = $(this).width();
 	}
 	else {
 		var radius = $(this).height();
 	}
-	
+
 	$(this).append('<div class="dot" style="top:' + getMousePos('y') + 'px; left:' + getMousePos('x') + 'px;"></div>')
-	
+
 	// 延迟1ms使transition生效
 	var obj = $(this);
 	setTimeout(function(){
 		obj.children('.dot:last').css({
 			'box-shadow': '0 0 0 ' + radius + 'px rgba(66, 166, 223, 0)',
-			'background': 'rgba(66, 166, 223, 0)' 
+			'background': 'rgba(66, 166, 223, 0)'
 		})
 	}, 1)
-	
+
 	// 动画结束后移除.dot
 	$(this).children('.dot:last').one('transitionend webkitTransitionEnd', function(){
 		$(this).remove()
-	})	
+	})
 });
 
 
@@ -95,14 +95,14 @@ function getMousePos(axis, event) {
 	// 目标元素距窗口边框距离
 	var Left=obj.offsetLeft, Top = obj.offsetTop;
 	while(obj.offsetParent != null){
-		obj = obj.offsetParent;   
-		Left += obj.offsetLeft;  
+		obj = obj.offsetParent;
+		Left += obj.offsetLeft;
 		Top += obj.offsetTop;
 	}
-	
+
 	var x = e.clientX - Left;
 	var y = e.clientY - Top;
-	
+
 	return {'x':x, 'y':y}[axis];
 }
 
@@ -336,6 +336,7 @@ function InverseTransform() {
 function paste_result() {
 	Pitch.val(Transformed_pitch.text());
 	Octave.val(Transformed_octave.text());
+	Tempo.val("");
 }
 
 function test_mp3() {
@@ -347,6 +348,7 @@ function test_mp3() {
 
 function xiaoxingxing() {
 	Pitch.val("0077997f5544220f7755442f7755442f0077997f5544220f");
+	Octave.val("");
 	Tempo.val("6");
 	Nmn.val("115566504433221055443320554433201155665044332210");
 }

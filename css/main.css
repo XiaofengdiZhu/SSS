@@ -20,6 +20,15 @@ textarea{
 textarea:focus{
   border-bottom: solid 2px #259b24;
 }
+#background{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #f2f4f5;
+  z-index: 0;
+}
 .button_md{
 	font-weight:bold;
   cursor: pointer;
@@ -81,6 +90,7 @@ textarea:focus{
     opacity: 0;
     transition: opacity 0.4s ease;
     -webkit-transition: opacity 0.4s ease;
+    z-index: -1;
 }
 #top_bar {
     position: fixed;
@@ -93,11 +103,13 @@ textarea:focus{
 }
 #content_box {
     width: 1190px;
-    height: 100%;
-    margin: 0 auto;
-    margin-top: 85px;
+    height: 770px;
+    top: 85px;
+    left:50%;
+    margin-left: -595px;
     overflow: hidden;
-    position: relative;
+    position: absolute;;
+    z-index: 1;
 }
 #pages {
     width: 2450px;
@@ -105,18 +117,20 @@ textarea:focus{
     position: absolute;
     transition: left 0.5s ease;
     -webkit-transition: left 0.5s ease;
+    z-index: 1;
 }
 #pages .page {
     position: relative;
     display: inline-block;
     vertical-align: top;
-    height: 100%;
+    height: 750px;
     width: 400px;
     margin: 10px;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .05), 0 1px 4px 0 rgba(0, 0, 0, .08), 0 3px 1px -2px rgba(0, 0, 0, .2);
     background-color: white;
     border-radius: 2px;
     overflow: auto;
+    z-index: 1;
 }
 #pages .page_big {
     width: 750px;
@@ -193,7 +207,7 @@ textarea:focus{
     background-color: white;
     border: solid;
     border-width: 1px;
-    z-index: 1;
+    z-index: 2;
 }
 .white_key:active {
     background-color: grey;
@@ -238,13 +252,6 @@ textarea:focus{
 .rest_key {
     width: 160px;
     height: 28px;
-    background-color: white;
-    border: solid;
-    border-width: 1px;
     font-size: bold;
-}
-
-}
-.rest_key:active {
-    background-color: grey;
+    position: relative;
 }

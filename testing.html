@@ -8,19 +8,20 @@
   <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 
-<body onwheel="change_page()">
+<body>
   <audio id="audio1" src="piano/00.mp3"></audio>
   <div id="loading">
     <img id="loading_img" src="img/logo.png" />
   </div>
   <div id='wrapper'>
-    <div id="top_bar">
+    <div id="background" onwheel="change_page()"></div>
+    <div id="top_bar" onwheel="change_page()">
       <img id="page_changer_1" class="page_changer page_changer_active" src="img/page_first.png" onclick="change_page()" style="margin-left:-100px;">
       <img id="page_changer_2" class="page_changer" src="img/page_second.png" onclick="change_page()" style="margin-left:60px;">
     </div>
     <div id="content_box">
       <div id="pages" class="page_first">
-        <div class="page page_big">
+        <div class="page page_big" onwheel="change_page()">
           <button onclick="start()" type="button">开始</button>
           <button onclick="reset()" type="button">停止</button>
           <button onclick="pause()" type="button">暂停</button>
@@ -57,7 +58,7 @@
             <div class='seg_h' style='top:96px;'></div>
           </div>
         </div>
-        <div class="page">
+        <div class="page" onwheel="if($(this).height()==this.scrollHeight)change_page();">
           <div class="section">
             <div class="title">音量</div>
             <div class="describe">0-f，可大写，错误输入或本框无输入时默认为f，有输入但字符数小于音高框字符数时，不足部分默认为该框最后一个有效字符</div>
@@ -86,7 +87,7 @@
             <div onclick="zhunishengrikuaile()" class="button_md button_flat" style="width:120px">祝你生日快乐</div>
           </div>
         </div>
-        <div class="page page_big" style="position:relative;">
+        <div class="page page_big" style="position:relative;" onwheel="change_page()">
           <div style="width:520px;height:220px;position:absolute;top:50%;margin-top:-110px;left:50%;margin-left:-260px;">
             点击琴键发声并将音符输入到简谱输入框中
             <br />
@@ -150,18 +151,20 @@
                 <div class="button white_key" style="margin-left:144px;"></div>
               </div>
             </div>
-            <button class="rest_key" style="margin-left:172px;margin-top:5px" onclick="$('#nmn').val($('#nmn').val() + '0');">0</button>
+            <button class="button white_key rest_key" style="margin-left:172px;margin-top:5px" onclick="$('#nmn').val($('#nmn').val() + '0');">0</button>
             <div id='tmp'></div>
           </div>
         </div>
-        <div class="page">
+        <div class="page" onwheel="if($(this).height()==this.scrollHeight)change_page();">
           <div class="section">
             <div class="title">简谱转换</div>
             <div class="describe">0-7，C=1，在数字前加上#代表升高半音，八度默认为1，用圆括号()、方括号[]框住一个或多个数字分别代表低一个八度、高一个八度，暂不支持节拍,错误输入将输出无效</div>
             <textarea id="nmn" placeholder="简谱" rows="1"></textarea>
-            <div class="button_md button_float" onclick="transform();" style="position:absolute;right:0;">转换</div>
           </div>
-          <div class="section" style="margin-top:40px">
+          <div class="section">
+            <div class="button_md button_float" onclick="transform();" style="position:absolute;right:0;top:0;margin-top:0;">转换</div>
+          </div>
+          <div class="section">
             转换结果：
             <br /> 音高：
             <span id="transformed_pitch"></span>
@@ -171,9 +174,11 @@
           <div class="section">
             <div class="title">转换成简谱</div>
             <div class="describe">将音高、八度输入框内容转换成简谱</div>
-            <div class="button_md button_float" onclick="InverseTransform();" style="position:absolute;right:0;">转换</div>
           </div>
-          <div class="section" style="margin-top:40px">
+          <div class="section">
+            <div class="button_md button_float" onclick="InverseTransform();" style="position:absolute;right:0;top:0;margin-top:0;">转换</div>
+          </div>
+          <div class="section">
             转换结果：<span id="inverseTransformed"></span>
           </div>
         </div>
