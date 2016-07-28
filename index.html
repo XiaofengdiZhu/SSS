@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>测试</title>
+  <title>SSS</title>
   <script src="js/jquery.min.js"></script>
   <style>
 	.white_key {
@@ -32,7 +32,7 @@
 	.black_key:active {
 		background-color: grey;
 	}
-	
+
 	.keyboard {
 		width: 168px;
 		height: 150px;
@@ -41,7 +41,7 @@
 		padding: 0;
 		position: relative;
 	}
-	
+
 	.button {
 		display: inline-block;
 		margin: 0;
@@ -49,7 +49,7 @@
 		top: 0;
 		cursor: pointer;
 	}
-	
+
 	.key_txt {
 		width: 100%;
 		text-align: center;
@@ -58,11 +58,24 @@
 		bottom: 0;
 		cursor: pointer;
 	}
-	
+
 	.white_pressed {
 		background-color: grey;
 	}
-	
+
+	.rest_key{
+		width: 160px;
+		height: 28px;
+		background-color: white;
+		border: solid;
+		border-width: 1px;
+		font-size:bold;"
+	}
+
+	.rest_key:active{
+		background-color: grey;
+	}
+
 	#loading {
 		z-index: 998;
 		-moz-user-select: none;
@@ -70,7 +83,7 @@
 		transition: opacity 0.4s ease;
 		-webkit-transition: opacity 0.4s ease;
 	}
-	
+
 	#loading_img {
 		margin: -150px 0 0 -150px;
 		position: absolute;
@@ -78,7 +91,7 @@
 		top: 50%;
 		z-index: 999;
 	}
-	
+
 	#wrapper {
 		display: none;
 		opacity: 0;
@@ -92,7 +105,7 @@
 	<div id="loading">
 		<img id="loading_img" src="img/loading.gif"/>
 	</div>
-	
+
 	<div id='wrapper'>
 		<audio id="audio1" src="piano/00.mp3"></audio>
 
@@ -202,9 +215,9 @@
 				<div class="button black_key" style="margin-left:136px;"></div>
 				<div class="button white_key" style="margin-left:144px;"></div>
 			</div>
-
 			<div id='tmp'></div>
 		</div>
+		<button class="rest_key" style="margin-left:170px;margin-top:5px" onclick="$('#nmn').val($('#nmn').val() + '0');">0</button>
 	</div>
 
 
@@ -236,16 +249,16 @@
     var Nmn = $('#nmn');
     var Transformed_pitch = $('#transformed_pitch');
     var Transformed_octave = $('#transformed_octave');
-	
-	
+
+
 	// 预加载音频
-	
+
 	for(var i = 0; i < 3; i++){
 		for(var j = 0; j < 15; j++){
 			$('#tmp').append('<audio src="piano/' + i + '' + hex[j] + '.mp3" preload="load" />')
 		}
 	}
-	
+
 	// 音频加载完成时隐藏loading、显示wrapper
 	$('#tmp').children('audio:last').on('canplaythrough', function(){
 		$('#loading').css('opacity', '0');
@@ -256,8 +269,8 @@
 				$('#wrapper').css('opacity', '1');
 			}, 1)
 		})
-	})	
-	
+	})
+
 	// 对应关系
 	var mapping = {
 		"0": "1",
@@ -277,29 +290,29 @@
 		"e": "9",
 		"f": "0"
 	}
-	
-	
+
+
 	var Keyboards = $('.keyboard');
 	for(var key_octave = 0; key_octave < 3; key_octave++){
 		var Keyboard = Keyboards.eq(key_octave);
-		
+
 		for(var key_pitch = 0; key_pitch <12; key_pitch++){
 			Keyboard.children('.button').eq(key_pitch).attr('id', key_octave + '' + hex[key_pitch]);
 			Keyboard.children('.button').eq(key_pitch).on('click', function(){
 				// 播放音频
 				Audio1.attr('src', 'piano/' + this.id + '.mp3');
 				Audio1[0].play();
-				
+
 				// 写入简谱
 				switch(this.id.substr(0, 1)){
 					case '0':
 						Nmn.val(Nmn.val() + "("+ mapping[this.id.substr(1, 1)] +")");
 						break;
-						
+
 					case '1':
 						Nmn.val(Nmn.val() + mapping[this.id.substr(1, 1)]);
 						break;
-						
+
 					case '2':
 						Nmn.val(Nmn.val() + "[" + mapping[this.id.substr(1, 1)] + "]");
 						break;
@@ -307,7 +320,7 @@
 			})
 		}
 	}
-	
+
 	// 为有文字的白键添加按下效果（解决IE按在文字div上，白键无active效果的问题）
 	for(var i = 0; i < $('.key_txt').length; i++){
 		$('.key_txt').eq(i).on('mousedown', function(){
@@ -317,7 +330,7 @@
 			$(this).parent().removeClass('white_pressed');
 		})
 	}
-	
+
     function start() {
       stop();
       string_volume = Volume.val().toLowerCase();
@@ -429,7 +442,7 @@
         }
       }
     }
-	
+
     function paste_result() {
       Pitch.val(Transformed_pitch.text());
       Octave.val(Transformed_octave.text());

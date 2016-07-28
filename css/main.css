@@ -1,0 +1,257 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+html {
+    height: 100%;
+}
+body {
+    height: 100%;
+    background-color: #f2f4f5;
+    overflow: hidden;
+}
+textarea{
+  margin-top:10px;
+  border:none;
+  border-bottom: solid 1px grey;
+  overflow: hidden;
+  outline:none;
+}
+textarea:focus{
+  border-bottom: solid 2px #259b24;
+}
+#background{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #f2f4f5;
+  z-index: 0;
+}
+.button_md{
+	font-weight:bold;
+  cursor: pointer;
+  width:100px;
+  line-height:40px;
+  height:40px;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select:none;
+  display:inline-block;
+  overflow:hidden;
+  position:relative;
+}
+.button_flat{
+  color:#259b24;
+  background-color: rgba(0, 0, 0, 0);
+  margin: 5px;
+}
+.button_float{
+  margin:15px;
+  color:white;
+  background-color: #259b24;
+  box-shadow: 0px 3px 6px 2px #BFBFBF;
+  transition: box-shadow 0.2s ease;
+  -webkit-transition: boxshadow 0.2s ease;
+}
+.button_float:active{
+  margin-top: 17px;
+  box-shadow: 0px 1px 3px 1px #606060;
+}
+.dot{
+	height: 3px;
+	width: 3px;
+	border-radius: 100%;
+	position: absolute;
+	background: rgba(220, 220, 220, 0.7);
+	z-index: 12;
+	box-shadow: 0 0 0 0px rgba(220, 220, 220, 0.7);
+	transition: all 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+#loading {
+    z-index: 998;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    transition: opacity 0.4s ease;
+    -webkit-transition: opacity 0.4s ease;
+}
+#loading_img {
+    margin: -120px 0 0 -300px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 999;
+}
+#wrapper {
+    height: 100%;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    -webkit-transition: opacity 0.4s ease;
+    z-index: -1;
+}
+#top_bar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #259b24;
+    z-index: 5;
+		box-shadow:0 0 6px 2px #808080;
+}
+#content_box {
+    width: 1190px;
+    height: 770px;
+    top: 85px;
+    left:50%;
+    margin-left: -595px;
+    overflow: hidden;
+    position: absolute;;
+    z-index: 1;
+}
+#pages {
+    width: 2450px;
+    height: 750px;
+    position: absolute;
+    transition: left 0.5s ease;
+    -webkit-transition: left 0.5s ease;
+    z-index: 1;
+}
+#pages .page {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    height: 750px;
+    width: 400px;
+    margin: 10px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .05), 0 1px 4px 0 rgba(0, 0, 0, .08), 0 3px 1px -2px rgba(0, 0, 0, .2);
+    background-color: white;
+    border-radius: 2px;
+    overflow: auto;
+    z-index: 1;
+}
+#pages .page_big {
+    width: 750px;
+}
+.page_first {
+    left: 0;
+}
+.page_second {
+    left: -1210px;
+}
+.page_changer {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    width: 40px;
+    width: 40px;
+    opacity: 0.6;
+    transition: opacity 0.5s ease;
+    -webkit-transition: opacity 0.5s ease;
+}
+.page_changer_active {
+    opacity: 1;
+}
+.section{
+  position: relative;
+  padding:20px;
+  word-break:break-all;
+}
+.title{
+  font-size: 18px;
+	font-weight:bold;
+  margin-left: -3px;
+}
+.describe{
+  color:grey;
+  font-size: 14px;
+  padding:5px;
+}
+.seg_v {
+	width: 16px;
+	height: 32px;
+	background: white;
+	position: absolute;
+  opacity: 0;
+  transition: opacity 0.1s ease;
+  -webkit-transition: opacity 0.1s ease;
+}
+.seg_h {
+	width: 48px;
+	height: 16px;
+	left: 16px;
+	background: white;
+	position: absolute;
+  opacity: 0;
+  transition: opacity 0.1s ease;
+  -webkit-transition: opacity 0.1s ease;
+}
+.seven_seg {
+	position: relative;
+	width: 78px;
+	height: 109px;
+	display: inline-block;
+	margin: 5px;
+}
+.seg_active {
+  opacity: 1;
+  transition: opacity 0.1s ease;
+  -webkit-transition: opacity 0.1s ease;
+}
+.white_key {
+    width: 24px;
+    height: 150px;
+    position: absolute;
+    background-color: white;
+    border: solid;
+    border-width: 1px;
+    z-index: 2;
+}
+.white_key:active {
+    background-color: grey;
+}
+.black_key {
+    width: 16px;
+    height: 95px;
+    position: absolute;
+    background-color: black;
+    border: none;
+    z-index: 9;
+}
+.black_key:active {
+    background-color: grey;
+}
+.keyboard {
+    width: 168px;
+    height: 150px;
+    display: inline-block;
+    margin-top: 10px;
+    padding: 0;
+    position: relative;
+}
+.button {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    cursor: pointer;
+}
+.key_txt {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    position: absolute;
+    bottom: 0;
+    cursor: pointer;
+}
+.white_pressed {
+    background-color: grey;
+}
+.rest_key {
+    width: 160px;
+    height: 28px;
+    font-size: bold;
+    position: relative;
+}
