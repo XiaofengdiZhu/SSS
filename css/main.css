@@ -255,3 +255,17 @@ textarea:focus{
     font-size: bold;
     position: relative;
 }
+#play_toggle {
+	background: url(../img/play.png);
+}
+#stop_btn {
+	background: url(../img/stop.png);
+}
+.audio_btn {
+	width: 90px;
+	height: 45px;
+	display: inline-block;
+	margin: 6px;
+	border: solid 1px;
+	border-radius: 5px;
+}

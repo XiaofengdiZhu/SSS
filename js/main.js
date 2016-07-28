@@ -153,25 +153,27 @@ for (var key_octave = 0; key_octave < 3; key_octave++) {
 	for (var key_pitch = 0; key_pitch < 12; key_pitch++) {
 		Keyboard.children('.button').eq(key_pitch).attr('id', key_octave + '' + hex[key_pitch]);
 		Keyboard.children('.button').eq(key_pitch).on('click', function() {
-			// 播放音频
-			Audio1.attr('src', 'piano/' + this.id + '.mp3');
-			Audio1[0].play();
-
-			// 写入简谱
-			switch (this.id.substr(0, 1)) {
-				case '0':
-					Nmn.val(Nmn.val() + "(" + mapping[this.id.substr(1, 1)] + ")");
-					break;
-
-				case '1':
-					Nmn.val(Nmn.val() + mapping[this.id.substr(1, 1)]);
-					break;
-
-				case '2':
-					Nmn.val(Nmn.val() + "[" + mapping[this.id.substr(1, 1)] + "]");
-					break;
+			if(!isLock){
+				// 播放音频
+				Audio1.attr('src', 'piano/' + this.id + '.mp3');
+				Audio1[0].play();
+	
+				// 写入简谱
+				switch (this.id.substr(0, 1)) {
+					case '0':
+						Nmn.val(Nmn.val() + "(" + mapping[this.id.substr(1, 1)] + ")");
+						break;
+	
+					case '1':
+						Nmn.val(Nmn.val() + mapping[this.id.substr(1, 1)]);
+						break;
+	
+					case '2':
+						Nmn.val(Nmn.val() + "[" + mapping[this.id.substr(1, 1)] + "]");
+						break;
+				}
+				Nmn[0].style.height=Nmn[0].scrollHeight + 'px';
 			}
-			Nmn[0].style.height=Nmn[0].scrollHeight + 'px';
 		})
 	}
 }
@@ -210,7 +212,12 @@ function start() {
 	string_octave = Octave.val();
 	string_tempo = Tempo.val();
 	length_pitch = string_pitch.length;
-	if (length_pitch !== 0) playAudio();
+	if (length_pitch !== 0){
+		playAudio();
+		playToggle.css('background', 'url(img/pause.png)');
+		isPlaying = true;
+		isPause = false;
+	}
 }
 
 function playAudio() {
@@ -237,7 +244,13 @@ function playAudio() {
 	segShow('#seg_seven_octave', now_octave);
 	now_node++;
 	if (now_node >= length_pitch) {
-		Audio1.one("ended", stop);
+		Audio1.one("ended", function(){
+			isPause = false;
+			isPlaying = false;
+			$('.lockable').removeAttr('disabled');
+			isLock = false;
+			playToggle.css('background', 'url(img/play.png)')
+		});
 		return;
 	}
 	timeout = setTimeout("playAudio()", now_time_tempo);
@@ -245,10 +258,16 @@ function playAudio() {
 
 function pause() {
 	clearTimeout(timeout);
+	isPause = true;
+	isPlaying = false;
+	playToggle.css('background', 'url(img/play.png)');
 }
 
 function continue_play() {
 	timeout = setTimeout("playAudio()", now_time_tempo);
+	isPause = false;
+	isPlaying = true;
+	playToggle.css('background', 'url(img/pause.png)')
 }
 
 function reset() {
@@ -266,6 +285,10 @@ function reset() {
 	segClr("#seg_seven_volume");
 	segClr("#seg_seven_pitch");
 	segClr("#seg_seven_octave");
+	
+	isPlaying = false;
+	isPause = false;
+	playToggle.css('background', 'url(img/play.png)');	
 }
 
 function transform() {
@@ -370,3 +393,38 @@ function segShow($target, character) {
 function segClr($target) {
 	$($target).children().removeClass('seg_active');
 }
+
+
+
+/**
+ * 播放/暂停/停止 控制
+ */
+var playToggle = $('#play_toggle');
+var stopBtn = $('#stop_btn');
+var isPlaying = false;
+var isPause = false;
+var isLock = false;
+
+playToggle.on('click', function(){
+	// 正在播放时
+	if(isPlaying){
+		pause();
+	}
+	// 暂停时
+	else if(isPause){
+		continue_play();
+	}
+	// 停止时
+	else {
+		start();
+		$('.lockable').attr('disabled', 'disabled');
+		isLock = true;
+	}
+})
+
+stopBtn.on('click', function(){
+	reset();
+	$('.lockable').removeAttr('disabled');
+	isLock = false;
+})
+
