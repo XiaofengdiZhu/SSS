@@ -276,4 +276,5 @@ textarea:focus{
 	height: 64px;
 	display: inline-block;
 	margin: 6px;
+	border-radius: 100%;
 }
