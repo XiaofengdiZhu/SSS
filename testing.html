@@ -86,9 +86,9 @@
           <div class="section">
             <div class="title">载入乐谱</div>
             <div onclick="if(!isLock) paste_result()" class="button_md button_flat" style="width:120px">简谱转换结果</div>
-            <div onclick="if(!isLock) test_mp3()" class="button_md button_flat" style="width:80px">测试</div>
-            <div onclick="if(!isLock) xiaoxingxing()" class="button_md button_flat" style="width:100px">小星星</div>
-            <div onclick="if(!isLock) zhunishengrikuaile()" class="button_md button_flat" style="width:120px">祝你生日快乐</div>
+            <div onclick="loadMusicScore(this)" class="button_md button_flat" data-music='test' style="width:80px">测试</div>
+            <div onclick="loadMusicScore(this)" class="button_md button_flat" data-music='twinkle_star' style="width:100px">小星星</div>
+            <div onclick="loadMusicScore(this)" class="button_md button_flat" data-music='happy_birthday' style="width:120px">祝你生日快乐</div>
           </div>
         </div>
         <div class="page page_big" style="position:relative;" onwheel="change_page()">

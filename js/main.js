@@ -381,38 +381,47 @@ function paste_result() {
 	Octave.css("height",Octave[0].scrollHeight + "px");
 }
 
-function test_mp3() {
-	Pitch.val("0123456789ab0123456789ab0123456789ab");
-	Octave.val("000000000000111111111111222222222222");
-	Tempo.val("012345678987654321012345678987654321");
-	Nmn.val("(1#12#234#45#56#67)1#12#234#45#56#67[1#12#234#45#56#67]");
-	Pitch.css("height",Pitch[0].scrollHeight + "px");
-	Octave.css("height",Octave[0].scrollHeight + "px");
-	Tempo.css("height",Tempo[0].scrollHeight + "px");
-	Nmn.css("height",Nmn[0].scrollHeight + "px");
+
+/**
+ * 载入乐谱
+ * @param {Object} obj 包含data-music属性的对象
+ */
+function loadMusicScore(obj){
+	obj = $(obj);
+	if(!isLock){
+		Pitch.val(musicList[obj.attr('data-music')].pitch);
+		Octave.val(musicList[obj.attr('data-music')].octave);
+		Tempo.val(musicList[obj.attr('data-music')].tempo);
+		Nmn.val(musicList[obj.attr('data-music')].nmn);
+		
+		Pitch.css("height",Pitch[0].scrollHeight + "px");
+		Octave.css("height",Octave[0].scrollHeight + "px");
+		Tempo.css("height",Tempo[0].scrollHeight + "px");
+		Nmn.css("height",Nmn[0].scrollHeight + "px");
+	}
+}
+// 乐谱列表
+var musicList = {
+	"test": {
+		"pitch": "0123456789ab0123456789ab0123456789ab",
+		"octave": "000000000000111111111111222222222222",
+		"tempo": "012345678987654321012345678987654321",
+		"nmn": "(1#12#234#45#56#67)1#12#234#45#56#67[1#12#234#45#56#67]"
+	},
+	"twinkle_star": {
+		"pitch": "0077997f5544220f7755442f7755442f0077997f5544220f",
+		"octave": "",
+		"tempo": "6",
+		"nmn": "115566504433221055443320554433201155665044332210"
+	},
+	"happy_birthday": {
+		"pitch": "77970bf779720f77740b9f554020",
+		"octave": "0000100000011000111000111111",
+		"tempo": "457777745777774577747745777",
+		"nmn": "(5565)1(705565)21(055)531(760)443121"
+	}
 }
 
-function xiaoxingxing() {
-	Pitch.val("0077997f5544220f7755442f7755442f0077997f5544220f");
-	Octave.val("");
-	Tempo.val("6");
-	Nmn.val("115566504433221055443320554433201155665044332210");
-	Pitch.css("height",Pitch[0].scrollHeight + "px");
-	Octave.css("height",Octave[0].scrollHeight + "px");
-	Tempo.css("height",Tempo[0].scrollHeight + "px");
-	Nmn.css("height",Nmn[0].scrollHeight + "px");
-}
-
-function zhunishengrikuaile() {
-	Pitch.val("77970bf779720f77740b9f554020");
-	Octave.val("0000100000011000111000111111");
-	Tempo.val("457777745777774577747745777");
-	Nmn.val("(5565)1(705565)21(055)531(760)443121");
-	Pitch.css("height",Pitch[0].scrollHeight + "px");
-	Octave.css("height",Octave[0].scrollHeight + "px");
-	Tempo.css("height",Tempo[0].scrollHeight + "px");
-	Nmn.css("height",Nmn[0].scrollHeight + "px");
-}
 
 function segShow($target, character) {
 	segClr($target);
