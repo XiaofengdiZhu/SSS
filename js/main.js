@@ -226,7 +226,7 @@ function start() {
 	length_pitch = string_pitch.length;
 	if (length_pitch !== 0) {
 		playAudio();
-		playToggle.css('background', 'url(img/pause.png)');
+		playToggle.css('background', 'url(img/pause.svg)');
 		isPlaying = true;
 		isPause = false;
 		$('.lockable').attr('disabled', 'disabled');
@@ -265,7 +265,7 @@ function playAudio() {
 			isPlaying = false;
 			$('.lockable').removeAttr('disabled');
 			isLock = false;
-			playToggle.css('background', 'url(img/play.png)');
+			playToggle.css('background', 'url(img/play.svg)');
 			Note.css("background-color",get_AudioColor());
 		});
 		return;
@@ -277,14 +277,14 @@ function pause() {
 	clearTimeout(timeout);
 	isPause = true;
 	isPlaying = false;
-	playToggle.css('background', 'url(img/play.png)');
+	playToggle.css('background', 'url(img/play.svg)');
 }
 
 function continue_play() {
 	timeout = setTimeout("playAudio()", now_time_tempo);
 	isPause = false;
 	isPlaying = true;
-	playToggle.css('background', 'url(img/pause.png)')
+	playToggle.css('background', 'url(img/pause.svg)')
 }
 
 function reset() {
@@ -305,7 +305,7 @@ function reset() {
 
 	isPlaying = false;
 	isPause = false;
-	playToggle.css('background', 'url(img/play.png)');
+	playToggle.css('background', 'url(img/play.svg)');
 }
 
 function transform() {

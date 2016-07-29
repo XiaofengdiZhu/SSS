@@ -266,16 +266,14 @@ textarea:focus{
     position: relative;
 }
 #play_toggle {
-	background: url(../img/play.png);
+	background: url(../img/play.svg);
 }
 #stop_btn {
-	background: url(../img/stop.png);
+	background: url(../img/stop.svg);
 }
 .audio_btn {
-	width: 90px;
-	height: 45px;
+	width: 64px;
+	height: 64px;
 	display: inline-block;
 	margin: 6px;
-	border: solid 1px;
-	border-radius: 5px;
 }
