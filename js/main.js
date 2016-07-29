@@ -31,9 +31,10 @@ var Nmn = $('#nmn');
 var Transformed_pitch = $('#transformed_pitch');
 var Transformed_octave = $('#transformed_octave');
 var InverseTransformed = $('#inverseTransformed');
+var Note = $("#note");
 
 // loading渐入
-setTimeout(function(){
+setTimeout(function() {
 	$('#loading_img').css('opacity', 1)
 }, 1)
 
@@ -47,7 +48,7 @@ for (var i = 0; i < 3; i++) {
 
 // 音频加载完成时隐藏loading、显示wrapper
 Tmp.children('audio:last').on('canplaythrough', function() {
-	setTimeout(function(){
+	setTimeout(function() {
 		$('#loading').css('opacity', '0');
 		$('#loading').one('transitionend webkitTransitionEnd', function() {
 			$('#loading').css('display', 'none');
@@ -57,18 +58,17 @@ Tmp.children('audio:last').on('canplaythrough', function() {
 			}, 1)
 		})
 	}, 240)
-	
+
 })
 
-$('textarea').attr('oninput','this.style.height=this.scrollHeight + "px"');
+$('textarea').attr('oninput', 'this.style.height=this.scrollHeight + "px"');
 
 
 // 按钮水波纹效果
-$(".button_md, .button").on('click', function(){
-	if($(this).width() > $(this).height()){
+$(".button_md, .button").on('click', function() {
+	if ($(this).width() > $(this).height()) {
 		var radius = $(this).width();
-	}
-	else {
+	} else {
 		var radius = $(this).height();
 	}
 
@@ -76,7 +76,7 @@ $(".button_md, .button").on('click', function(){
 
 	// 延迟1ms使transition生效
 	var obj = $(this);
-	setTimeout(function(){
+	setTimeout(function() {
 		obj.children('.dot:last').css({
 			'box-shadow': '0 0 0 ' + radius + 'px rgba(66, 166, 223, 0)',
 			'background': 'rgba(66, 166, 223, 0)'
@@ -84,7 +84,7 @@ $(".button_md, .button").on('click', function(){
 	}, 1)
 
 	// 动画结束后移除.dot
-	$(this).children('.dot:last').one('transitionend webkitTransitionEnd', function(){
+	$(this).children('.dot:last').one('transitionend webkitTransitionEnd', function() {
 		$(this).remove()
 	})
 });
@@ -96,13 +96,14 @@ $(".button_md, .button").on('click', function(){
 function getMousePos(axis, event) {
 	var e = event || window.event;
 	var obj = e.target;
-	if(obj.className == 'dot'){
+	if (obj.className == 'dot') {
 		obj = obj.parentElement;
 	}
 
 	// 目标元素距窗口边框距离
-	var Left=obj.offsetLeft, Top = obj.offsetTop;
-	while(obj.offsetParent != null){
+	var Left = obj.offsetLeft,
+		Top = obj.offsetTop;
+	while (obj.offsetParent != null) {
 		obj = obj.offsetParent;
 		Left += obj.offsetLeft;
 		Top += obj.offsetTop;
@@ -111,7 +112,10 @@ function getMousePos(axis, event) {
 	var x = e.clientX - Left;
 	var y = e.clientY - Top;
 
-	return {'x':x, 'y':y}[axis];
+	return {
+		'x': x,
+		'y': y
+	}[axis];
 }
 
 
@@ -161,26 +165,26 @@ for (var key_octave = 0; key_octave < 3; key_octave++) {
 	for (var key_pitch = 0; key_pitch < 12; key_pitch++) {
 		Keyboard.children('.button').eq(key_pitch).attr('id', key_octave + '' + hex[key_pitch]);
 		Keyboard.children('.button').eq(key_pitch).on('click', function() {
-			if(!isLock){
+			if (!isLock) {
 				// 播放音频
 				Audio1.attr('src', 'piano/' + this.id + '.mp3');
 				Audio1[0].play();
-	
+
 				// 写入简谱
 				switch (this.id.substr(0, 1)) {
 					case '0':
 						Nmn.val(Nmn.val() + "(" + mapping[this.id.substr(1, 1)] + ")");
 						break;
-	
+
 					case '1':
 						Nmn.val(Nmn.val() + mapping[this.id.substr(1, 1)]);
 						break;
-	
+
 					case '2':
 						Nmn.val(Nmn.val() + "[" + mapping[this.id.substr(1, 1)] + "]");
 						break;
 				}
-				Nmn[0].style.height=Nmn[0].scrollHeight + 'px';
+				Nmn[0].style.height = Nmn[0].scrollHeight + 'px';
 			}
 		})
 	}
@@ -220,7 +224,7 @@ function start() {
 	string_octave = Octave.val();
 	string_tempo = Tempo.val();
 	length_pitch = string_pitch.length;
-	if (length_pitch !== 0){
+	if (length_pitch !== 0) {
 		playAudio();
 		playToggle.css('background', 'url(img/pause.png)');
 		isPlaying = true;
@@ -252,14 +256,17 @@ function playAudio() {
 	segShow('#seg_seven_volume', now_volume);
 	segShow('#seg_seven_pitch', now_pitch);
 	segShow('#seg_seven_octave', now_octave);
+	Note.attr("src","img/note_"+ Math.ceil(Math.random()*4) +".png");
+	Note.css("background-color",get_AudioColor());
 	now_node++;
 	if (now_node >= length_pitch) {
-		Audio1.one("ended", function(){
+		Audio1.one("ended", function() {
 			isPause = false;
 			isPlaying = false;
 			$('.lockable').removeAttr('disabled');
 			isLock = false;
-			playToggle.css('background', 'url(img/play.png)')
+			playToggle.css('background', 'url(img/play.png)');
+			Note.css("background-color",get_AudioColor());
 		});
 		return;
 	}
@@ -295,10 +302,10 @@ function reset() {
 	segClr("#seg_seven_volume");
 	segClr("#seg_seven_pitch");
 	segClr("#seg_seven_octave");
-	
+
 	isPlaying = false;
 	isPause = false;
-	playToggle.css('background', 'url(img/play.png)');	
+	playToggle.css('background', 'url(img/play.png)');
 }
 
 function transform() {
@@ -370,6 +377,8 @@ function paste_result() {
 	Pitch.val(Transformed_pitch.text());
 	Octave.val(Transformed_octave.text());
 	Tempo.val("");
+	Pitch.css("height",Pitch[0].scrollHeight + "px");
+	Octave.css("height",Octave[0].scrollHeight + "px");
 }
 
 function test_mp3() {
@@ -377,6 +386,10 @@ function test_mp3() {
 	Octave.val("000000000000111111111111222222222222");
 	Tempo.val("012345678987654321012345678987654321");
 	Nmn.val("(1#12#234#45#56#67)1#12#234#45#56#67[1#12#234#45#56#67]");
+	Pitch.css("height",Pitch[0].scrollHeight + "px");
+	Octave.css("height",Octave[0].scrollHeight + "px");
+	Tempo.css("height",Tempo[0].scrollHeight + "px");
+	Nmn.css("height",Nmn[0].scrollHeight + "px");
 }
 
 function xiaoxingxing() {
@@ -384,6 +397,10 @@ function xiaoxingxing() {
 	Octave.val("");
 	Tempo.val("6");
 	Nmn.val("115566504433221055443320554433201155665044332210");
+	Pitch.css("height",Pitch[0].scrollHeight + "px");
+	Octave.css("height",Octave[0].scrollHeight + "px");
+	Tempo.css("height",Tempo[0].scrollHeight + "px");
+	Nmn.css("height",Nmn[0].scrollHeight + "px");
 }
 
 function zhunishengrikuaile() {
@@ -391,6 +408,10 @@ function zhunishengrikuaile() {
 	Octave.val("0000100000011000111000111111");
 	Tempo.val("457777745777774577747745777");
 	Nmn.val("(5565)1(705565)21(055)531(760)443121");
+	Pitch.css("height",Pitch[0].scrollHeight + "px");
+	Octave.css("height",Octave[0].scrollHeight + "px");
+	Tempo.css("height",Tempo[0].scrollHeight + "px");
+	Nmn.css("height",Nmn[0].scrollHeight + "px");
 }
 
 function segShow($target, character) {
@@ -415,18 +436,60 @@ var isPlaying = false;
 var isPause = false;
 var isLock = false;
 
-playToggle.on('click', function(){
+playToggle.on('click', function() {
 	// 正在播放时
-	if(isPlaying) pause();
+	if (isPlaying) pause();
 	// 暂停时
-	else if(isPause) continue_play();
+	else if (isPause) continue_play();
 	// 停止时
 	else start();
 })
 
-stopBtn.on('click', function(){
+stopBtn.on('click', function() {
 	reset();
 	$('.lockable').removeAttr('disabled');
 	isLock = false;
 })
-
+function get_AudioColor(){
+	if(!isLock)return "rgb(255,255,255)";
+	var h = (22.5 * parseInt(now_pitch, 16) + 22*Math.random())/60;
+	var s = 0.5 + parseInt(now_volume, 16) / 30;
+	var i = Math.floor(h);
+	var f = h - i;
+	var a = 1 - s;
+	var b = 1 - s * f;
+	var c = 1 - s * (1 - f);
+	switch (i){
+		case 0:
+			R = 1;
+			G = c;
+			B = a;
+			break;
+		case 1:
+			R = b;
+			G = 1;
+			B = a;
+			break;
+		case 2:
+			R = a;
+			G = 1;
+			B = c;
+			break;
+		case 3:
+			R = a;
+			G = b;
+			B = 1;
+			break;
+		case 4:
+			R = c;
+			G = a;
+			B = 1;
+			break;
+		case 5:
+			R = 1;
+			G = a;
+			B = b;
+			break;
+	}
+	return "rgb("+Math.round(R * 255) + "," + Math.round(G * 255) + "," + Math.round(B * 255) + ")";
+}

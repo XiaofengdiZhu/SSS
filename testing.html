@@ -28,7 +28,7 @@
           <button onclick="continue_play()" type="button">继续</button>-->
           <div id='play_toggle' class='audio_btn button_md'></div>
           <div id='stop_btn' class='audio_btn button_md'></div>
-          
+
           <br /> 状态：
           <span id="status">停止</span>；进度：<span id="progress">总0/0，第0行，第0列</span>；播放文件：<span id="file">无</span>；音量：<span id="volume_display">f</span>；延时：<span id="tempo_display">0.5</span>秒
           <br />
@@ -60,6 +60,7 @@
             <div class='seg_v' style='top:64px; left:64px'></div>
             <div class='seg_h' style='top:96px;'></div>
           </div>
+          <img id="note" src="img/note_1.png" class="note" style="background-color:white;width:64px;height:64px;margin-top:-112px;margin-left:48px;">
         </div>
         <div class="page" onwheel="if($(this).height()==this.scrollHeight)change_page();">
           <div class="section">
@@ -92,8 +93,7 @@
         </div>
         <div class="page page_big" style="position:relative;" onwheel="change_page()">
           <div style="width:520px;height:220px;position:absolute;top:50%;margin-top:-110px;left:50%;margin-left:-260px;">
-            点击琴键发声并将音符输入到简谱输入框中
-            <br />
+            <div style="text-align:center;">点击琴键发声并将音符输入到简谱输入框中</div>
             <div id="keyboards">
               <div class='keyboard'>
                 <div class="button white_key">
