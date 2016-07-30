@@ -22,10 +22,9 @@
     <div id="content_box">
       <div id="pages" class="page_first">
         <div class="page page_big" onwheel="change_page()">
-          <button onclick="start()" type="button">开始</button>
-          <button onclick="reset()" type="button">停止</button>
-          <button onclick="pause()" type="button">暂停</button>
-          <button onclick="continue_play()" type="button">继续</button>
+          <div id='play_toggle' class='audio_btn button_md'></div>
+          <div id='stop_btn' class='audio_btn button_md'></div>
+
           <br /> 状态：
           <span id="status">停止</span>；进度：<span id="progress">总0/0，第0行，第0列</span>；播放文件：<span id="file">无</span>；音量：<span id="volume_display">f</span>；延时：<span id="tempo_display">0.5</span>秒
           <br />
@@ -57,40 +56,41 @@
             <div class='seg_v' style='top:64px; left:64px'></div>
             <div class='seg_h' style='top:96px;'></div>
           </div>
+          
+          <div id='notes'></div>
         </div>
         <div class="page" onwheel="if($(this).height()==this.scrollHeight)change_page();">
           <div class="section">
             <div class="title">音量</div>
             <div class="describe">0-f，可大写，错误输入或本框无输入时默认为f，有输入但字符数小于音高框字符数时，不足部分默认为该框最后一个有效字符</div>
-            <textarea id="volume" placeholder="音量" rows="1"></textarea>
+            <textarea id="volume" class='lockable' placeholder="音量" rows="1"></textarea>
           </div>
           <div class="section">
             <div class="title">音高</div>
             <div class="describe">0-f，可大写，默认f，播放到末尾时自动停止播放</div>
-            <textarea id="pitch" placeholder="音高" rows="1"></textarea>
+            <textarea id="pitch" class='lockable' placeholder="音高" rows="1"></textarea>
           </div>
           <div class="section">
             <div class="title"> 八度</div>
             <div class="describe">0-2，错误输入或不输入时默认为0)</div>
-            <textarea id="octave" placeholder="八度" rows="1"></textarea>
+            <textarea id="octave" class='lockable' placeholder="八度" rows="1"></textarea>
           </div>
           <div class="section">
             <div class="title">延时</div>
             <div class="describe">0-9分别对应0.2、0.3、0.333、0.4、0.5、0.6、0.7、0.8、0.9、1秒，错误输入或本框无输入时默认为4，即0.5秒，有输入但字符数小于音高框字符数时，不足部分默认为该框最后一个有效字符</div>
-            <textarea id="tempo" placeholder="延时" rows="1"></textarea>
+            <textarea id="tempo" class='lockable' placeholder="延时" rows="1"></textarea>
           </div>
           <div class="section">
             <div class="title">载入乐谱</div>
-            <div onclick="paste_result()" class="button_md button_flat" style="width:120px">简谱转换结果</div>
-            <div onclick="test_mp3()" class="button_md button_flat" style="width:80px">测试</div>
-            <div onclick="xiaoxingxing()" class="button_md button_flat" style="width:100px">小星星</div>
-            <div onclick="zhunishengrikuaile()" class="button_md button_flat" style="width:120px">祝你生日快乐</div>
+            <div onclick="if(!isLock) paste_result()" class="button_md button_flat" style="width:120px">简谱转换结果</div>
+            <div onclick="loadMusicScore(this)" class="button_md button_flat" data-music='test' style="width:80px">测试</div>
+            <div onclick="loadMusicScore(this)" class="button_md button_flat" data-music='twinkle_star' style="width:100px">小星星</div>
+            <div onclick="loadMusicScore(this)" class="button_md button_flat" data-music='happy_birthday' style="width:120px">祝你生日快乐</div>
           </div>
         </div>
         <div class="page page_big" style="position:relative;" onwheel="change_page()">
           <div style="width:520px;height:220px;position:absolute;top:50%;margin-top:-110px;left:50%;margin-left:-260px;">
-            点击琴键发声并将音符输入到简谱输入框中
-            <br />
+            <div style="text-align:center;">点击琴键发声并将音符输入到简谱输入框中</div>
             <div id="keyboards">
               <div class='keyboard'>
                 <div class="button white_key">
@@ -159,10 +159,10 @@
           <div class="section">
             <div class="title">简谱转换</div>
             <div class="describe">0-7，C=1，在数字前加上#代表升高半音，八度默认为1，用圆括号()、方括号[]框住一个或多个数字分别代表低一个八度、高一个八度，暂不支持节拍,错误输入将输出无效</div>
-            <textarea id="nmn" placeholder="简谱" rows="1"></textarea>
+            <textarea id="nmn" class='lockable' placeholder="简谱" rows="1"></textarea>
           </div>
           <div class="section">
-            <div class="button_md button_float" onclick="transform();" style="position:absolute;right:0;top:0;margin-top:0;">转换</div>
+            <div class="button_md button_float" onclick="if(!isLock) transform();" style="position:absolute;right:0;top:0;margin-top:0;">转换</div>
           </div>
           <div class="section">
             转换结果：
@@ -176,7 +176,7 @@
             <div class="describe">将音高、八度输入框内容转换成简谱</div>
           </div>
           <div class="section">
-            <div class="button_md button_float" onclick="InverseTransform();" style="position:absolute;right:0;top:0;margin-top:0;">转换</div>
+            <div class="button_md button_float" onclick="if(!isLock) InverseTransform();" style="position:absolute;right:0;top:0;margin-top:0;">转换</div>
           </div>
           <div class="section">
             转换结果：<span id="inverseTransformed"></span>
