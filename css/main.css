@@ -279,11 +279,8 @@ textarea:focus{
 	border-radius: 100%;
 }
 .note {
-	width:64px;
-	height:64px;
-	margin-top:-112px;
-	margin-left:48px;
-	background: #fff;
-	transition: all 0.5s linear;
-	-webkit-transition: all 0.5s linear;
+	height:80px;
+	transition: all 0.5s cubic-bezier(0.3, 0.1, 0.4, 1);
+	-webkit-transition: all 0.5s cubic-bezier(0.3, 0.1, 0.4, 1);
+	opacity: 0;
 }

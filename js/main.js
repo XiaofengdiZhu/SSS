@@ -258,23 +258,43 @@ function playAudio() {
 	segShow('#seg_seven_pitch', now_pitch);
 	segShow('#seg_seven_octave', now_octave);
 	
-//	Note.attr("src","img/note_"+ Math.ceil(Math.random()*4) +".png");
-//	Note.css("background",get_AudioColor());
 
-	// 显示音符图片
-	Notes.append('<img class="note" src="img/note_' + Math.ceil(Math.random()*4) + '.png" style="background:' + get_AudioColor() + '" />');
+	// 随机显示音符图片
+	Notes.append(showNote(Math.ceil(Math.random()*4)));
+	
+	// 渐显&飘散
 	setTimeout(function(){
+		var x = Math.round(Math.random() * 240 - 120);
+		var y = Math.round(Math.random() * 240 - 120);
+		
+		for(;;){
+			if(Math.abs(x) < 70){
+				x = Math.round(Math.random() * 240 - 120);
+			}
+			else if(Math.abs(y) < 70){
+				y = Math.round(Math.random() * 240 - 120);
+			}
+			else break;			
+		}
 		Notes.children('.note:last').css({
-			// X&Y轴-70~70px随机飘散
-			'transform': 'translate(' + (Math.round(Math.random() * 140 - 70)) + 'px, ' + (Math.round(Math.random() * 140 - 70)) + 'px)',
-			'-webkit-transform': 'translate(' + (Math.round(Math.random() * 140 - 70)) + 'px, ' + (Math.round(Math.random() * 140 - 70)) + 'px)',
-			'opacity': 0
+			'opacity': 1,
+			// X&Y轴分别 -120~-70 / 70~120px 随机飘散
+			'transform': 'translate(' + x + 'px, ' + y + 'px)',
+			'-webkit-transform': 'translate(' + x + 'px, ' + y + 'px)'
+		});
+	}, 5);
+	
+	// 渐隐
+	setTimeout(function(){
+		var note = Notes.children('.note:last');
+		
+		note.css('opacity', 0);
+		// 渐隐后移除
+		note.on('transitionend webkitTransitionEnd', function(){
+			$(this).remove();
 		})
-	}, now_time_tempo - 150)
-	console.log(now_time_tempo)
-//	Notes.children('.note:last').on('transitionend webkitTransitionEnd', function(){
-//		$(this).remove();
-//	})
+	}, now_time_tempo - 50)
+	
 	
 	now_node++;
 	if (now_node >= length_pitch) {
@@ -527,4 +547,19 @@ function get_AudioColor(){
 	}
 	
 	return "rgb("+Math.round(R * 255) + "," + Math.round(G * 255) + "," + Math.round(B * 255) + ")";
+}
+
+
+function showNote(num){
+	var points = {
+		"1": "32,16 64,16 64,8 120,8 120,104 112,104 112,112 88,112 88,104 80,104 80,88 88,88 88,80 104,80 104,24 80,24 80,32 48,32 48,112 40,112 40,120 16,120 16,112 8,112 8,96 16,96 16,88 32,88",
+		"2": "32,16 64,16 64,8 120,8 120,104 112,104 112,112 88,112 88,104 80,104 80,88 88,88 88,80 104,80 104,56 80,56 80,64 48,64 48,48 72,48 72,40 104,40 104,24 80,24 80,32 48,32 48,112 40,112 40,120 16,120 16,112 8,112 8,96 16,96 16,88 32,88",
+		"3": "80,8 80,104 72,104 72,112 48,112 48,104 40,104 40,88 48,88 48,80 64,80 64,8",
+		"4": "80,8 80,16 96,16 96,32 104,32 104,56 112,56 112,64 96,64 96,56 88,56 88,32 80,32 80,104 72,104 72,112 48,112 48,104 40,104 40,88 48,88 48,80 64,80 64,8"
+	}
+	var html = '<svg class="note" xmlns="http://www.w3.org/2000/svg" version="1.1"' +
+	'style="margin:' + (Math.round(Math.random() * 80 - 40) - 40) + 'px 0 0 ' + (Math.round(Math.random() * 80 - 40) - 40) + 'px" viewBox="0 0 120 120">' +
+	'<polygon points="' + points[num] + '" style="fill:' + get_AudioColor() + '" /></svg>'
+	
+	return html;
 }
