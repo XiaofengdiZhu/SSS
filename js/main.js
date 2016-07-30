@@ -31,7 +31,7 @@ var Nmn = $('#nmn');
 var Transformed_pitch = $('#transformed_pitch');
 var Transformed_octave = $('#transformed_octave');
 var InverseTransformed = $('#inverseTransformed');
-var Note = $("#note");
+var Notes = $("#notes");
 
 // loading渐入
 setTimeout(function() {
@@ -253,11 +253,29 @@ function playAudio() {
 	File_display.text('piano/' + now_octave + now_pitch + '.mp3');
 	Volume_display.text(now_volume);
 	Tempo_display.text(now_time_tempo / 1000);
+	
 	segShow('#seg_seven_volume', now_volume);
 	segShow('#seg_seven_pitch', now_pitch);
 	segShow('#seg_seven_octave', now_octave);
-	Note.attr("src","img/note_"+ Math.ceil(Math.random()*4) +".png");
-	Note.css("background-color",get_AudioColor());
+	
+//	Note.attr("src","img/note_"+ Math.ceil(Math.random()*4) +".png");
+//	Note.css("background",get_AudioColor());
+
+	// 显示音符图片
+	Notes.append('<img class="note" src="img/note_' + Math.ceil(Math.random()*4) + '.png" style="background:' + get_AudioColor() + '" />');
+	setTimeout(function(){
+		Notes.children('.note:last').css({
+			// X&Y轴-70~70px随机飘散
+			'transform': 'translate(' + (Math.round(Math.random() * 140 - 70)) + 'px, ' + (Math.round(Math.random() * 140 - 70)) + 'px)',
+			'-webkit-transform': 'translate(' + (Math.round(Math.random() * 140 - 70)) + 'px, ' + (Math.round(Math.random() * 140 - 70)) + 'px)',
+			'opacity': 0
+		})
+	}, now_time_tempo - 150)
+	console.log(now_time_tempo)
+//	Notes.children('.note:last').on('transitionend webkitTransitionEnd', function(){
+//		$(this).remove();
+//	})
+	
 	now_node++;
 	if (now_node >= length_pitch) {
 		Audio1.one("ended", function() {
@@ -266,7 +284,7 @@ function playAudio() {
 			$('.lockable').removeAttr('disabled');
 			isLock = false;
 			playToggle.css('background', 'url(img/play.svg)');
-			Note.css("background-color",get_AudioColor());
+//			Notes.children('.note:last').css("background", '#fff');
 		});
 		return;
 	}
@@ -459,8 +477,14 @@ stopBtn.on('click', function() {
 	$('.lockable').removeAttr('disabled');
 	isLock = false;
 })
+
+
+
 function get_AudioColor(){
-	if(!isLock)return "rgb(255,255,255)";
+	if(!isLock){
+		//return "rgb(255,255,255)";
+	}
+	
 	var h = (22.5 * parseInt(now_pitch, 16) + 22*Math.random())/60;
 	var s = 0.5 + parseInt(now_volume, 16) / 30;
 	var i = Math.floor(h);
@@ -468,6 +492,7 @@ function get_AudioColor(){
 	var a = 1 - s;
 	var b = 1 - s * f;
 	var c = 1 - s * (1 - f);
+	
 	switch (i){
 		case 0:
 			R = 1;
@@ -500,5 +525,6 @@ function get_AudioColor(){
 			B = b;
 			break;
 	}
+	
 	return "rgb("+Math.round(R * 255) + "," + Math.round(G * 255) + "," + Math.round(B * 255) + ")";
 }

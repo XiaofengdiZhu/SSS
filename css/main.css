@@ -278,3 +278,12 @@ textarea:focus{
 	margin: 6px;
 	border-radius: 100%;
 }
+.note {
+	width:64px;
+	height:64px;
+	margin-top:-112px;
+	margin-left:48px;
+	background: #fff;
+	transition: all 0.5s linear;
+	-webkit-transition: all 0.5s linear;
+}
