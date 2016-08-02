@@ -16,47 +16,46 @@
   <div id='wrapper'>
     <div id="background" onwheel="change_page()"></div>
     <div id="top_bar" onwheel="change_page()">
-      <img id="page_changer_1" class="page_changer page_changer_active" src="img/page_first.png" onclick="change_page()" style="margin-left:-100px;">
-      <img id="page_changer_2" class="page_changer" src="img/page_second.png" onclick="change_page()" style="margin-left:60px;">
+      <img id="page_changer_1" class="page_changer page_changer_active" src="img/page_first.png" onclick="if(now_page==1)change_page()" style="margin-left:-100px;">
+      <img id="page_changer_2" class="page_changer" src="img/page_second.png" onclick="if(now_page==0)change_page()" style="margin-left:60px;">
     </div>
     <div id="content_box">
       <div id="pages" class="page_first">
         <div class="page page_big" onwheel="change_page()">
-          <div id='play_toggle' class='audio_btn button_md'></div>
-          <div id='stop_btn' class='audio_btn button_md'></div>
+          <input type="range" id="progress_range" min="1" max="1" step="1" defaultValue="1" onchange="now_node = this.value - 1;Progress_range_value.val(this.value);" onmousedown="isProgressEditing=true" onmouseup="isProgressEditing=false" style="position:absolute;top:70%;left:50%;margin-left:-150px;margin-top:5px;"/>
+          <input id="progress_range_value" type="text" placeholder="0" onfocus="isProgressEditing=true" onblur="isProgressEditing=false;now_node = this.value - 1;" onkeydown='if(event.keyCode==13){isProgressEditing=false;now_node = this.value - 1;$(this).blur();}'></input>
+          <div id="progress_range_max" style="position:absolute;top:70%;left:50%;margin-left:155px;margin-top:-3px;">0</div>
+          <div id='play_toggle' class='audio_btn button_md' style="top:75%;left:50%;margin-left:-100px;"></div>
+          <div id='stop_btn' class='audio_btn button_md' style="top:75%;left:50%;margin-left:36px;"></div>
+          <img src="img/SoundGenerator.png" style="position:absolute;top:40%;left:50%;margin-top:-192px;margin-left:-192px;">
+          <div id="seg_seven_volume" class='seg_seven' style="left:50%;margin-top:-184px;margin-left:-168px;">
+            <div class='seg_h' style='top:0;'></div>
+            <div class='seg_v' style='top:16px; left:0;'></div>
+            <div class='seg_v' style='top:16px; left:64px'></div>
+            <div class='seg_h' style='top:48px;'></div>
+            <div class='seg_v' style='top:64px; left:0'></div>
+            <div class='seg_v' style='top:64px; left:64px'></div>
+            <div class='seg_h' style='top:96px;'></div>
+          </div>
+          <div id="seg_seven_pitch" class='seg_seven' style="left:50%;margin-top:72px;margin-left:-168px;">
+            <div class='seg_h' style='top:0;'></div>
+            <div class='seg_v' style='top:16px; left:0;'></div>
+            <div class='seg_v' style='top:16px; left:64px'></div>
+            <div class='seg_h' style='top:48px;'></div>
+            <div class='seg_v' style='top:64px; left:0'></div>
+            <div class='seg_v' style='top:64px; left:64px'></div>
+            <div class='seg_h' style='top:96px;'></div>
+          </div>
+          <div id="seg_seven_octave" class='seg_seven' style="left:50%;margin-top:72px;margin-left:88px;">
+            <div class='seg_h' style='top:0;'></div>
+            <div class='seg_v' style='top:16px; left:0;'></div>
+            <div class='seg_v' style='top:16px; left:64px'></div>
+            <div class='seg_h' style='top:48px;'></div>
+            <div class='seg_v' style='top:64px; left:0'></div>
+            <div class='seg_v' style='top:64px; left:64px'></div>
+            <div class='seg_h' style='top:96px;'></div>
+          </div>
 
-          <br /> 状态：
-          <span id="status">停止</span>；进度：<span id="progress">总0/0，第0行，第0列</span>；播放文件：<span id="file">无</span>；音量：<span id="volume_display">f</span>；延时：<span id="tempo_display">0.5</span>秒
-          <br />
-          <img src="img/SoundGenerator.png" style="position:absolute;top:50%;left:50%;margin-top:-192px;margin-left:-192px;">
-          <div id="seg_seven_volume" class='seg_seven' style="position:absolute;top:50%;left:50%;margin-top:-184px;margin-left:-168px;">
-            <div class='seg_h' style='top:0;'></div>
-            <div class='seg_v' style='top:16px; left:0;'></div>
-            <div class='seg_v' style='top:16px; left:64px'></div>
-            <div class='seg_h' style='top:48px;'></div>
-            <div class='seg_v' style='top:64px; left:0'></div>
-            <div class='seg_v' style='top:64px; left:64px'></div>
-            <div class='seg_h' style='top:96px;'></div>
-          </div>
-          <div id="seg_seven_pitch" class='seg_seven' style="position:absolute;top:50%;left:50%;margin-top:72px;margin-left:-168px;">
-            <div class='seg_h' style='top:0;'></div>
-            <div class='seg_v' style='top:16px; left:0;'></div>
-            <div class='seg_v' style='top:16px; left:64px'></div>
-            <div class='seg_h' style='top:48px;'></div>
-            <div class='seg_v' style='top:64px; left:0'></div>
-            <div class='seg_v' style='top:64px; left:64px'></div>
-            <div class='seg_h' style='top:96px;'></div>
-          </div>
-          <div id="seg_seven_octave" class='seg_seven' style="position:absolute;top:50%;left:50%;margin-top:72px;margin-left:88px;">
-            <div class='seg_h' style='top:0;'></div>
-            <div class='seg_v' style='top:16px; left:0;'></div>
-            <div class='seg_v' style='top:16px; left:64px'></div>
-            <div class='seg_h' style='top:48px;'></div>
-            <div class='seg_v' style='top:64px; left:0'></div>
-            <div class='seg_v' style='top:64px; left:64px'></div>
-            <div class='seg_h' style='top:96px;'></div>
-          </div>
-          
           <div id='notes'></div>
         </div>
         <div class="page" onwheel="if($(this).height()==this.scrollHeight)change_page();">

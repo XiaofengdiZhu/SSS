@@ -173,6 +173,10 @@ textarea:focus{
   font-size: 14px;
   padding:5px;
 }
+.seg_seven{
+  position:absolute;
+  top:40%;
+}
 .seg_v {
 	width: 16px;
 	height: 32px;
@@ -206,9 +210,8 @@ textarea:focus{
 }
 .note{
   position: absolute;
-  top:50%;
+  top:40%;
   left:50%;
-
 }
 .white_key {
     width: 24px;
@@ -272,11 +275,51 @@ textarea:focus{
 	background: url(../img/stop.svg);
 }
 .audio_btn {
+  position: absolute;
 	width: 64px;
 	height: 64px;
-	display: inline-block;
 	margin: 6px;
 	border-radius: 100%;
+  box-shadow: 0px 3px 6px 2px #BFBFBF;
+  transition: box-shadow 0.2s ease;
+  -webkit-transition: boxshadow 0.2s ease;
+}
+.audio_btn:active{
+  margin-top: 8px;
+  box-shadow: 0px 1px 3px 1px #606060;
+}
+#progress_range{
+  width: 300px;
+  background-color: #259b24;
+  border-radius: 3px;
+  height: 3px;
+  -webkit-appearance:none;
+  outline: none;
+}
+#progress_range::-webkit-slider-thumb{
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 100%;
+  background-color: #259b24;
+}
+#progress_range::-webkit-slider-thumb:hover{
+  width: 16px;
+  height: 16px;
+}
+#progress_range_value{
+  position:absolute;
+  top:70%;
+  left:50%;
+  margin-left:-180px;
+  width:25px;
+  text-align: center;
+  outline:none;
+  border:none;
+  border-bottom: solid 1px grey;
+}
+#progress_range_value:focus{
+  border-bottom: solid 2px #259b24;
 }
 .note {
 	height:80px;
