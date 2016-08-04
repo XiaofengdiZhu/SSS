@@ -253,10 +253,11 @@ textarea:focus{
 }
 .key_txt {
     width: 100%;
+    font-size: 16px;
     text-align: center;
     font-weight: bold;
     position: absolute;
-    bottom: 0;
+    bottom: 10px;
     cursor: pointer;
 }
 .white_pressed {
