@@ -305,8 +305,7 @@ textarea:focus{
   background-color: #259b24;
 }
 #progress_range::-webkit-slider-thumb:hover{
-  width: 16px;
-  height: 16px;
+	box-shadow: 0 0 0 2px #259b24;
 }
 #progress_range_value{
   position:absolute;
