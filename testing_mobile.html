@@ -3,9 +3,10 @@
 
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>SSS-β</title>
   <script src="js/jquery.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="css/main_mobile.css">
 </head>
 
 <body>
@@ -14,14 +15,19 @@
     <img id="loading_img" src="img/logo.png" />
   </div>
   <div id='wrapper'>
-    <div id="background" onwheel="change_page()"></div>
-    <div id="top_bar" onwheel="change_page()">
-      <img id="page_changer_1" class="page_changer page_changer_active" src="img/page_first.png" onclick="if(now_page==1)change_page()" style="margin-left:-100px;">
-      <img id="page_changer_2" class="page_changer" src="img/page_second.png" onclick="if(now_page==0)change_page()" style="margin-left:60px;">
+    <div id="background"></div>
+    <div id="top_bar">
+      <img id="page_changer_1" class="page_changer page_changer_active" src="img/page_first.png" onclick="if(now_page==1)change_page()" style="margin-left:-70px;">
+      <img id="page_changer_2" class="page_changer" src="img/page_second.png" onclick="if(now_page==0)change_page()" style="margin-left:30px;">
+    </div>
+    <div id="second_top_bar">
+      <div id="chapter_changer_0" class="chapeter_changer"  onclick="if((now_page==0 && now_chapter_in_first==1)||(now_page==1 && now_chapter_in_second==1))change_chapter(0)" style="left:0;">模拟</div>
+      <div id="chapter_changer_1" class="chapeter_changer" onclick="if((now_page==0 && now_chapter_in_first==0)||(now_page==1 && now_chapter_in_second==0))change_chapter(1)" style="left:50%;">编辑</div>
+      <div id="chapter_changer_bar" class="chapter_changer_bar_0"></div>
     </div>
     <div id="content_box">
-      <div id="pages" class="page_first">
-        <div class="page page_big" onwheel="change_page()">
+      <div id="pages" class="page_first page_first_0">
+        <div class="page">
           <input type="range" id="progress_range" min="1" max="1" step="1" defaultValue="1" onchange="now_node = this.value - 1;Progress_range_value.val(this.value);" onmousedown="isProgressEditing=true" onmouseup="isProgressEditing=false" style="position:absolute;top:70%;left:50%;margin-left:-150px;margin-top:5px;"/>
           <input id="progress_range_value" type="text" placeholder="0" onfocus="isProgressEditing=true" onblur="isProgressEditing=false;now_node = this.value - 1;" onkeydown='if(event.keyCode==13){isProgressEditing=false;now_node = this.value - 1;$(this).blur();}'></input>
           <div id="progress_range_max" style="position:absolute;top:70%;left:50%;margin-left:155px;margin-top:-3px;">0</div>
@@ -57,8 +63,7 @@
           </div>
 
           <div id='notes'></div>
-        </div>
-        <div class="page" onwheel="if($(this).height()==this.scrollHeight)change_page();">
+        </div><div class="page">
           <div class="section">
             <div class="title">音量</div>
             <div class="describe">0-f，可大写，错误输入或本框无输入时默认为f，有输入但字符数小于音高框字符数时，不足部分默认为该框最后一个有效字符</div>
@@ -86,8 +91,7 @@
             <div onclick="loadMusicScore(this)" class="button_md button_flat" data-music='twinkle_star' style="width:100px">小星星</div>
             <div onclick="loadMusicScore(this)" class="button_md button_flat" data-music='happy_birthday' style="width:120px">祝你生日快乐</div>
           </div>
-        </div>
-        <div class="page page_big" style="position:relative;" onwheel="change_page()">
+        </div><div class="page" style="position:relative;">
           <div style="width:520px;height:220px;position:absolute;top:50%;margin-top:-110px;left:50%;margin-left:-260px;">
             <div style="text-align:center;">点击琴键发声并将音符输入到简谱输入框中</div>
             <div id="keyboards">
@@ -141,8 +145,7 @@
             <button class="button white_key rest_key" style="margin-left:172px;margin-top:5px" onclick="$('#nmn').val($('#nmn').val() + '0');">0</button>
             <div id='tmp'></div>
           </div>
-        </div>
-        <div class="page" onwheel="if($(this).height()==this.scrollHeight)change_page();">
+        </div><div class="page">
           <div class="section">
             <div class="title">简谱转换</div>
             <div class="describe">0-7，C=1，在数字前加上#代表升高半音，八度默认为1，用圆括号()、方括号[]框住一个或多个数字分别代表低一个八度、高一个八度，暂不支持节拍,错误输入将输出无效</div>
@@ -174,7 +177,7 @@
   </div>
 
 
-  <script src="js/main.js"></script>
+  <script src="js/main_mobile.js"></script>
 </body>
 
 </html>

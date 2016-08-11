@@ -26,7 +26,7 @@ textarea:focus{
   left: 0;
   height: 100%;
   width: 100%;
-  background-color: #f2f4f5;
+  background-color: white;
   z-index: 0;
 }
 .button_md{
@@ -104,19 +104,24 @@ textarea:focus{
     z-index: 5;
 		box-shadow:0 0 6px 2px #808080;
 }
+#second_top_bar{
+  position: fixed;
+  top: 60px;
+  width: 100%;
+  height: 40px;
+  background-color: #f2f4f5;
+  z-index: 4;
+}
 #content_box {
-    width: 1210px;
-    height: 770px;
-    top: 85px;
-    left:50%;
-    margin-left: -605px;
-    overflow: hidden;
-    position: absolute;;
-    z-index: 1;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
 }
 #pages {
-    width: 2490px;
-    height: 750px;
+    width: 400%;
+    height: 100%;
     position: absolute;
     transition: left 0.5s ease;
     -webkit-transition: left 0.5s ease;
@@ -126,23 +131,24 @@ textarea:focus{
     position: relative;
     display: inline-block;
     vertical-align: top;
-    height: 750px;
-    width: 420px;
-    margin: 10px;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .05), 0 1px 4px 0 rgba(0, 0, 0, .08), 0 3px 1px -2px rgba(0, 0, 0, .2);
+    height: 100%;
+    width: 25%;
     background-color: white;
-    border-radius: 2px;
+    padding-top: 100px;
     overflow: auto;
     z-index: 1;
 }
-#pages .page_big {
-    width: 750px;
-}
-.page_first {
+.page_first_0 {
     left: 0;
 }
-.page_second {
-    left: -1230px;
+.page_first_1 {
+    left: -100%;
+}
+.page_second_0 {
+    left: -200%;
+}
+.page_second_1 {
+    left: -300%;
 }
 .page_changer {
     position: absolute;
@@ -153,10 +159,37 @@ textarea:focus{
     opacity: 0.6;
     transition: opacity 0.5s ease;
     -webkit-transition: opacity 0.5s ease;
-	cursor: pointer;
+    cursor: pointer;
 }
 .page_changer_active {
     opacity: 1;
+}
+.chapeter_changer{
+  position: absolute;
+  width:50%;
+  height: 40px;
+  font-size: 20px;
+  font-weight:bold;
+  cursor: pointer;
+  text-align: center;
+  user-select: none;
+  -webkit-user-select:none;
+  line-height: 40px;
+}
+#chapter_changer_bar{
+  position: absolute;
+  width: 50%;
+  height: 3px;
+  top:37px;
+  background-color: #259b24;
+  transition: left 0.5s ease;
+  -webkit-transition: left 0.5s ease;
+}
+.chapter_changer_bar_0{
+  left: 0;
+}
+.chapter_changer_bar_1{
+  left: 50%;
 }
 .section{
   position: relative;
@@ -296,6 +329,7 @@ textarea:focus{
   height: 3px;
   -webkit-appearance:none;
   outline: none;
+  border:none;
 }
 #progress_range::-webkit-slider-thumb{
   -webkit-appearance: none;
