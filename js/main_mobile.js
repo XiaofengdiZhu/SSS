@@ -8,6 +8,7 @@ var Page_changer_2 = $('#page_changer_2');
 var Chapter_changer_bar = $('#chapter_changer_bar');
 var Chapter_changer_0 = $('#chapter_changer_0');
 var Chapter_changer_1 = $('#chapter_changer_1');
+var Menu = $('#menu');
 var string_volume = "f";
 var string_pitch = "0";
 var string_octave = "0";
@@ -71,7 +72,7 @@ $('textarea').attr('oninput', 'this.style.height=this.scrollHeight + "px"');
 
 
 // 按钮水波纹效果
-$(".button_md, .button").on('click', function() {
+$(".button_md").on('click', function() {
 	if ($(this).width() > $(this).height()) {
 		var radius = $(this).width();
 	} else {
@@ -254,6 +255,10 @@ function change_page() {
 $("body").on("mousedown touchstart", function() {
 	var e = event || window.event;
 	last_mouseDownX = e.clientX || e.touches[0].clientX;
+	if(Menu.attr('class').indexOf('menu_show')!=-1){
+		Menu.removeClass("menu_show");
+		setTimeout(function(){Menu.hide()},500);
+	}
 });
 
 $("body").on("mouseup touchmove", function() {
@@ -302,7 +307,7 @@ function change_chapter(number) {
 				Chapter_changer_bar.removeClass('chapter_changer_bar_0');
 				setTimeout("now_chapter_in_second = 1;", 500);
 			}
-		} else if (now_chapter_in_first == 1) {
+		} else if (now_chapter_in_second == 1) {
 			if (number == 0) {
 				Pages.addClass('page_second_0');
 				Pages.removeClass('page_second_1');

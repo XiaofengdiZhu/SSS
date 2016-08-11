@@ -16,12 +16,19 @@
   </div>
   <div id='wrapper'>
     <div id="background"></div>
+    <div id="mask"></div>
+    <div id="about">
+      <h1 style="text-align:center;">关于</h1>
+      <div class="section" style="text-align:center;">SSS(A simulator of SoundGenerator in Survivalcraft)是一个生存战争声音产生器的模拟器，通过本工具可以方便地测试、转换乐谱，</div>
+    </div>
     <div id="top_bar">
       <img id="page_changer_1" class="page_changer page_changer_active" src="img/page_first.png" onclick="if(now_page==1)change_page()" style="margin-left:-70px;">
       <img id="page_changer_2" class="page_changer" src="img/page_second.png" onclick="if(now_page==0)change_page()" style="margin-left:30px;">
+      <img src="img/menu_btn.svg" style="position:absolute;top:50%;margin-top:-12px;right:12px;cursor:pointer;" onclick="Menu.show();Menu.addClass('menu_show');">
+      <div id="menu" onclick="$('#mask').show();$('#about').addClass('about_show');">关于</div>
     </div>
     <div id="second_top_bar">
-      <div id="chapter_changer_0" class="chapeter_changer"  onclick="if((now_page==0 && now_chapter_in_first==1)||(now_page==1 && now_chapter_in_second==1))change_chapter(0)" style="left:0;">模拟</div>
+      <div id="chapter_changer_0" class="chapeter_changer" onclick="if((now_page==0 && now_chapter_in_first==1)||(now_page==1 && now_chapter_in_second==1))change_chapter(0)" style="left:0;">模拟</div>
       <div id="chapter_changer_1" class="chapeter_changer" onclick="if((now_page==0 && now_chapter_in_first==0)||(now_page==1 && now_chapter_in_second==0))change_chapter(1)" style="left:50%;">编辑</div>
       <div id="chapter_changer_bar" class="chapter_changer_bar_0"></div>
     </div>
