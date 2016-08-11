@@ -1,8 +1,13 @@
 var Tmp = $('#tmp');
 var now_page = 0;
+var now_chapter_in_first = 0;
+var now_chapter_in_second = 0;
 var Pages = $('#pages');
 var Page_changer_1 = $('#page_changer_1');
 var Page_changer_2 = $('#page_changer_2');
+var Chapter_changer_bar = $('#chapter_changer_bar');
+var Chapter_changer_0 = $('#chapter_changer_0');
+var Chapter_changer_1 = $('#chapter_changer_1');
 var string_volume = "f";
 var string_pitch = "0";
 var string_octave = "0";
@@ -32,6 +37,7 @@ var Progress_range = $('#progress_range');
 var Progress_range_value = $('#progress_range_value');
 var Progress_range_max = $('#progress_range_max');
 var isProgressEditing = false;
+var last_mouseDownX = 0;
 
 // loading渐入
 setTimeout(function() {
@@ -118,7 +124,6 @@ function getMousePos(axis, event) {
 	}[axis];
 }
 
-
 // 对应关系
 var mapping = {
 	"0": "1",
@@ -202,21 +207,49 @@ for (var i = 0; i < $('.key_txt').length; i++) {
 
 function change_page() {
 	if (now_page == 0) {
-		Pages.addClass('page_second');
-		Pages.removeClass('page_first');
+		if (now_chapter_in_second == 0){
+			Pages.addClass('page_second_0');
+			if(now_chapter_in_first ==1){
+				Chapter_changer_bar.addClass('chapter_changer_bar_0');
+				Chapter_changer_bar.removeClass('chapter_changer_bar_1');
+			}
+		}else if (now_chapter_in_second == 1){
+			Pages.addClass('page_second_1');
+			if(now_chapter_in_first ==0){
+				Chapter_changer_bar.addClass('chapter_changer_bar_1');
+				Chapter_changer_bar.removeClass('chapter_changer_bar_0');
+			}
+		}
+		Pages.removeClass('page_first_0 Page_first_1');
 		Page_changer_1.removeClass('page_changer_active');
 		Page_changer_2.addClass('page_changer_active');
+		Chapter_changer_0.text("弹奏");
+		Chapter_changer_1.text("简谱");
 		setTimeout("now_page = 1;", 500);
 	}
 	if (now_page == 1) {
-		Pages.addClass('page_first');
-		Pages.removeClass('page_second');
+		if (now_chapter_in_first == 0){
+			Pages.addClass('page_first_0');
+			if(now_chapter_in_second ==1){
+				Chapter_changer_bar.addClass('chapter_changer_bar_0');
+				Chapter_changer_bar.removeClass('chapter_changer_bar_1');
+			}
+		}
+		else if (now_chapter_in_first == 1){
+			Pages.addClass('page_first_1');
+			if(now_chapter_in_second ==0){
+				Chapter_changer_bar.addClass('chapter_changer_bar_1');
+				Chapter_changer_bar.removeClass('chapter_changer_bar_0');
+			}
+		}
+		Pages.removeClass('page_second_0 page_second_1');
 		Page_changer_2.removeClass('page_changer_active');
 		Page_changer_1.addClass('page_changer_active');
+		Chapter_changer_0.text("模拟");
+		Chapter_changer_1.text("编辑");
 		setTimeout("now_page = 0;", 500);
 	}
 }
-
 
 $("body").on("mousedown touchstart", function() {
 	var e = event || window.event;
@@ -226,9 +259,60 @@ $("body").on("mousedown touchstart", function() {
 $("body").on("mouseup touchmove", function() {
 	var e = event || window.event;
 	var dx = (e.clientX || e.touches[0].clientX) - last_mouseDownX;
-	if (dx > 10 && now_page == 1) change_page();
-	if (dx < -10 && now_page == 0) change_page();
+	if (dx > 10) change_chapter(0);
+	if (dx < -10) change_chapter(1);
 });
+
+function change_chapter(number) {
+	if (now_page == 0) {
+		if (now_chapter_in_first == 0) {
+			if (number == 0) return;
+			else if (number == 1) {
+				Pages.addClass('page_first_1');
+				Pages.removeClass('page_first_0');
+				Chapter_changer_bar.addClass('chapter_changer_bar_1');
+				Chapter_changer_bar.removeClass('chapter_changer_bar_0');
+				setTimeout("now_chapter_in_first = 1;", 500);
+			}
+		} else if (now_chapter_in_first == 1) {
+			if (number == 0) {
+				Pages.addClass('page_first_0');
+				Pages.removeClass('page_first_1');
+				Chapter_changer_bar.addClass('chapter_changer_bar_0');
+				Chapter_changer_bar.removeClass('chapter_changer_bar_1');
+				setTimeout("now_chapter_in_first = 0;", 500);
+			} else if (number == 1) {
+				Pages.addClass('page_second_0');
+				Pages.removeClass('page_first_1');
+				change_page();
+				setTimeout("now_chapter_in_second = 0;", 500);
+			}
+		}
+	} else if (now_page == 1) {
+		if (now_chapter_in_second == 0) {
+			if (number == 0) {
+				Pages.addClass('page_first_1');
+				Pages.removeClass('page_second_0');
+				change_page();
+				setTimeout("now_chapter_in_first = 1;", 500);
+			} else if (number == 1) {
+				Pages.addClass('page_second_1');
+				Pages.removeClass('page_second_0');
+				Chapter_changer_bar.addClass('chapter_changer_bar_1');
+				Chapter_changer_bar.removeClass('chapter_changer_bar_0');
+				setTimeout("now_chapter_in_second = 1;", 500);
+			}
+		} else if (now_chapter_in_first == 1) {
+			if (number == 0) {
+				Pages.addClass('page_second_0');
+				Pages.removeClass('page_second_1');
+				Chapter_changer_bar.addClass('chapter_changer_bar_0');
+				Chapter_changer_bar.removeClass('chapter_changer_bar_1');
+				setTimeout("now_chapter_in_second = 0;", 500);
+			} else if (number == 1) return;
+		}
+	}
+}
 
 function start() {
 	reset();
@@ -264,9 +348,9 @@ function playAudio() {
 		Audio1.attr('src', 'piano/' + now_octave + now_pitch + '.mp3');
 		Audio1[0].play();
 	}
-	if(!isProgressEditing){
+	if (!isProgressEditing) {
 		Progress_range[0].value = now_node + 1;
-		Progress_range_value.val(now_node+1);
+		Progress_range_value.val(now_node + 1);
 	}
 
 	segShow('#seg_seven_volume', now_volume);
@@ -275,21 +359,19 @@ function playAudio() {
 
 
 	// 随机显示音符图片
-	Notes.append(showNote(Math.ceil(Math.random()*4)));
+	Notes.append(showNote(Math.ceil(Math.random() * 4)));
 
 	// 渐显&飘散
-	setTimeout(function(){
+	setTimeout(function() {
 		var x = Math.round(Math.random() * 240 - 120);
 		var y = Math.round(Math.random() * 240 - 120);
 
-		for(;;){
-			if(Math.abs(x) < 70){
+		for (;;) {
+			if (Math.abs(x) < 70) {
 				x = Math.round(Math.random() * 240 - 120);
-			}
-			else if(Math.abs(y) < 70){
+			} else if (Math.abs(y) < 70) {
 				y = Math.round(Math.random() * 240 - 120);
-			}
-			else break;
+			} else break;
 		}
 		Notes.children('.note:last').css({
 			'opacity': 1,
@@ -300,12 +382,12 @@ function playAudio() {
 	}, 5);
 
 	// 渐隐
-	setTimeout(function(){
+	setTimeout(function() {
 		var note = Notes.children('.note:last');
 
 		note.css('opacity', 0);
 		// 渐隐后移除
-		note.on('transitionend webkitTransitionEnd', function(){
+		note.on('transitionend webkitTransitionEnd', function() {
 			$(this).remove();
 		})
 	}, now_time_tempo - 50)
@@ -427,8 +509,8 @@ function paste_result() {
 	Pitch.val(Transformed_pitch.text());
 	Octave.val(Transformed_octave.text());
 	Tempo.val("");
-	Pitch.css("height",Pitch[0].scrollHeight + "px");
-	Octave.css("height",Octave[0].scrollHeight + "px");
+	Pitch.css("height", Pitch[0].scrollHeight + "px");
+	Octave.css("height", Octave[0].scrollHeight + "px");
 }
 
 
@@ -436,18 +518,18 @@ function paste_result() {
  * 载入乐谱
  * @param {Object} obj 包含data-music属性的对象
  */
-function loadMusicScore(obj){
+function loadMusicScore(obj) {
 	obj = $(obj);
-	if(!isLock){
+	if (!isLock) {
 		Pitch.val(musicList[obj.attr('data-music')].pitch);
 		Octave.val(musicList[obj.attr('data-music')].octave);
 		Tempo.val(musicList[obj.attr('data-music')].tempo);
 		Nmn.val(musicList[obj.attr('data-music')].nmn);
 
-		Pitch.css("height",Pitch[0].scrollHeight + "px");
-		Octave.css("height",Octave[0].scrollHeight + "px");
-		Tempo.css("height",Tempo[0].scrollHeight + "px");
-		Nmn.css("height",Nmn[0].scrollHeight + "px");
+		Pitch.css("height", Pitch[0].scrollHeight + "px");
+		Octave.css("height", Octave[0].scrollHeight + "px");
+		Tempo.css("height", Tempo[0].scrollHeight + "px");
+		Nmn.css("height", Nmn[0].scrollHeight + "px");
 	}
 }
 // 乐谱列表
@@ -512,12 +594,12 @@ stopBtn.on('click', function() {
 
 
 
-function get_AudioColor(){
-	if(now_pitch.indexOf("f") != -1){
+function get_AudioColor() {
+	if (now_pitch.indexOf("f") != -1) {
 		return "rgba(0,0,0,0)";
 	}
 
-	var h = (22.5 * parseInt(now_pitch, 16) + 22*Math.random())/60;
+	var h = (22.5 * parseInt(now_pitch, 16) + 22 * Math.random()) / 60;
 	var s = 0.5 + parseInt(now_volume, 16) / 30;
 	var i = Math.floor(h);
 	var f = h - i;
@@ -525,7 +607,7 @@ function get_AudioColor(){
 	var b = 1 - s * f;
 	var c = 1 - s * (1 - f);
 
-	switch (i){
+	switch (i) {
 		case 0:
 			R = 1;
 			G = c;
@@ -558,11 +640,11 @@ function get_AudioColor(){
 			break;
 	}
 
-	return "rgb("+Math.round(R * 255) + "," + Math.round(G * 255) + "," + Math.round(B * 255) + ")";
+	return "rgb(" + Math.round(R * 255) + "," + Math.round(G * 255) + "," + Math.round(B * 255) + ")";
 }
 
 
-function showNote(num){
+function showNote(num) {
 	var points = {
 		"1": "32,16 64,16 64,8 120,8 120,104 112,104 112,112 88,112 88,104 80,104 80,88 88,88 88,80 104,80 104,24 80,24 80,32 48,32 48,112 40,112 40,120 16,120 16,112 8,112 8,96 16,96 16,88 32,88",
 		"2": "32,16 64,16 64,8 120,8 120,104 112,104 112,112 88,112 88,104 80,104 80,88 88,88 88,80 104,80 104,56 80,56 80,64 48,64 48,48 72,48 72,40 104,40 104,24 80,24 80,32 48,32 48,112 40,112 40,120 16,120 16,112 8,112 8,96 16,96 16,88 32,88",
@@ -570,8 +652,8 @@ function showNote(num){
 		"4": "80,8 80,16 96,16 96,32 104,32 104,56 112,56 112,64 96,64 96,56 88,56 88,32 80,32 80,104 72,104 72,112 48,112 48,104 40,104 40,88 48,88 48,80 64,80 64,8"
 	}
 	var html = '<svg class="note" xmlns="http://www.w3.org/2000/svg" version="1.1"' +
-	'style="margin:' + (Math.round(Math.random() * 80 - 40) - 40) + 'px 0 0 ' + (Math.round(Math.random() * 80 - 40) - 40) + 'px" viewBox="0 0 120 120">' +
-	'<polygon points="' + points[num] + '" style="fill:' + get_AudioColor() + '" /></svg>'
+		'style="margin:' + (Math.round(Math.random() * 80 - 40) - 40) + 'px 0 0 ' + (Math.round(Math.random() * 80 - 40) - 40) + 'px" viewBox="0 0 120 120">' +
+		'<polygon points="' + points[num] + '" style="fill:' + get_AudioColor() + '" /></svg>'
 
 	return html;
 }
