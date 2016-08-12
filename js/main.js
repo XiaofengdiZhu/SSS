@@ -3,6 +3,9 @@ var now_page = 0;
 var Pages = $('#pages');
 var Page_changer_1 = $('#page_changer_1');
 var Page_changer_2 = $('#page_changer_2');
+var Menu = $('#menu');
+var Mask = $('#mask');
+var About = $('#about');
 var string_volume = "f";
 var string_pitch = "0";
 var string_octave = "0";
@@ -221,6 +224,10 @@ function change_page() {
 $("body").on("mousedown touchstart", function() {
 	var e = event || window.event;
 	last_mouseDownX = e.clientX || e.touches[0].clientX;
+	if(Menu.attr('class').indexOf('menu_show')!=-1){
+		Menu.removeClass("menu_show");
+		setTimeout(function(){Menu.hide()},500);
+	}
 });
 
 $("body").on("mouseup touchmove", function() {

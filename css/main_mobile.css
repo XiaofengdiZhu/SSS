@@ -20,6 +20,10 @@ textarea{
 textarea:focus{
   border-bottom: solid 2px #259b24;
 }
+a:link, a:visited {
+	text-decoration: none;
+	color: #03a9f4;
+}
 #background{
   position: fixed;
   top: 0;
@@ -391,6 +395,7 @@ textarea:focus{
   z-index: 7;
 }
 #about{
+  display: none;
   position: fixed;
   left:20%;
   top:20%;
