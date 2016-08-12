@@ -363,10 +363,12 @@ a:link, a:visited {
 #about{
   display: none;
   position: fixed;
-  left:20%;
-  top:20%;
-  bottom: 20%;
-  width: 60%;
+  top:50%;
+  left:50%;
+  width: 400px;
+  height: 500px;
+  margin-top: -250px;
+  margin-left: -200px;
   padding:20px;
   background-color: white;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .05), 0 1px 4px 0 rgba(0, 0, 0, .08), 0 3px 1px -2px rgba(0, 0, 0, .2);
