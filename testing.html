@@ -9,7 +9,7 @@
 </head>
 
 <body>
-  <audio id="audio1" src="piano/00.mp3"></audio>
+  <audio id="audio1" src="piano/piano.mp3" preload="auto"></audio>
   <div id="loading">
     <img id="loading_img" src="img/logo.png" />
   </div>
@@ -153,7 +153,6 @@
               </div>
             </div>
             <button class="button white_key rest_key" style="margin-left:172px;margin-top:5px" onclick="$('#nmn').val($('#nmn').val() + '0');">0</button>
-            <div id='tmp'></div>
           </div>
         </div>
         <div class="page" onwheel="if($(this).height()==this.scrollHeight)change_page();">
