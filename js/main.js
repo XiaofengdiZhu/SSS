@@ -1,8 +1,10 @@
-var Tmp = $('#tmp');
 var now_page = 0;
 var Pages = $('#pages');
 var Page_changer_1 = $('#page_changer_1');
 var Page_changer_2 = $('#page_changer_2');
+var Menu = $('#menu');
+var Mask = $('#mask');
+var About = $('#about');
 var string_volume = "f";
 var string_pitch = "0";
 var string_octave = "0";
@@ -39,15 +41,8 @@ setTimeout(function() {
 }, 1)
 
 
-// 预加载音频
-for (var i = 0; i < 3; i++) {
-	for (var j = 0; j < 15; j++) {
-		Tmp.append('<audio src="piano/' + i + '' + hex[j] + '.mp3" preload />')
-	}
-}
-
 // 音频加载完成时隐藏loading、显示wrapper
-Tmp.children('audio:last').on('canplaythrough', function() {
+Audio1.on('canplaythrough', function() {
 	setTimeout(function() {
 		$('#loading').css('opacity', '0');
 		$('#loading').one('transitionend webkitTransitionEnd', function() {
@@ -157,37 +152,78 @@ var seg_list = {
 	"e": "01346",
 	"f": "0134"
 }
+var secMapping = {
+	"00": "2",
+	"01": "4",
+	"02": "6",
+	"03": "8",
+	"04": "10",
+	"05": "12",
+	"06": "14",
+	"07": "16",
+	"08": "18",
+	"09": "20",
+	"0a": "22",
+	"0b": "24",
+	"10": "26",
+	"11": "28",
+	"12": "30",
+	"13": "32",
+	"14": "34",
+	"15": "36",
+	"16": "38",
+	"17": "40",
+	"18": "42",
+	"19": "44",
+	"1a": "46",
+	"1b": "48",
+	"20": "50",
+	"21": "52",
+	"22": "54",
+	"23": "56",
+	"24": "58",
+	"25": "60",
+	"26": "62",
+	"27": "64",
+	"28": "66",
+	"29": "68",
+	"2a": "70",
+	"2b": "72",
+	"2c": "74",
+	"2d": "76",
+	"2e": "78"
+}
 
-var Keyboards = $('.keyboard');
-for (var key_octave = 0; key_octave < 3; key_octave++) {
-	var Keyboard = Keyboards.eq(key_octave);
+var keys = $('.keyboard').children('.button');
+var pauseTimeOut;
+for (var i = 0, seek = 2; i < keys.length; i++, seek += 2) {
+	keys.eq(i).attr('data-seek', seek);
+	keys.eq(i).on('click', function() {
+		if (!isLock) {
+			// 播放音频
+			Audio1[0].play();
+			Audio1[0].currentTime = $(this).attr('data-seek');
+			clearTimeout(pauseTimeOut);
+			pauseTimeOut = setTimeout(function() {
+				Audio1[0].pause();
+			}, 1800);
+			// 写入简谱
+			switch (this.id.substr(0, 1)) {
+				case '0':
+					Nmn.val(Nmn.val() + "(" + mapping[this.id.substr(1, 1)] + ")");
+					break;
 
-	for (var key_pitch = 0; key_pitch < 12; key_pitch++) {
-		Keyboard.children('.button').eq(key_pitch).attr('id', key_octave + '' + hex[key_pitch]);
-		Keyboard.children('.button').eq(key_pitch).on('click', function() {
-			if (!isLock) {
-				// 播放音频
-				Audio1.attr('src', 'piano/' + this.id + '.mp3');
-				Audio1[0].play();
+				case '1':
+					Nmn.val(Nmn.val() + mapping[this.id.substr(1, 1)]);
+					break;
 
-				// 写入简谱
-				switch (this.id.substr(0, 1)) {
-					case '0':
-						Nmn.val(Nmn.val() + "(" + mapping[this.id.substr(1, 1)] + ")");
-						break;
-
-					case '1':
-						Nmn.val(Nmn.val() + mapping[this.id.substr(1, 1)]);
-						break;
-
-					case '2':
-						Nmn.val(Nmn.val() + "[" + mapping[this.id.substr(1, 1)] + "]");
-						break;
-				}
-				Nmn[0].style.height = Nmn[0].scrollHeight + 'px';
+				case '2':
+					Nmn.val(Nmn.val() + "[" + mapping[this.id.substr(1, 1)] + "]");
+					break;
 			}
-		})
-	}
+			Nmn[0].style.height = Nmn[0].scrollHeight + 'px';
+		}
+	});
 }
 
 // 为有文字的白键添加按下效果（解决IE按在文字div上，白键无active效果的问题）
@@ -221,6 +257,10 @@ function change_page() {
 $("body").on("mousedown touchstart", function() {
 	var e = event || window.event;
 	last_mouseDownX = e.clientX || e.touches[0].clientX;
+	if(Menu.attr('class').indexOf('menu_show')!=-1){
+		Menu.removeClass("menu_show");
+		setTimeout(function(){Menu.hide()},500);
+	}
 });
 
 $("body").on("mouseup touchmove", function() {
@@ -261,8 +301,12 @@ function playAudio() {
 	}
 	Audio1[0].volume = parseInt(now_volume, 16) / 15;
 	if (now_pitch.indexOf("f") == -1) {
-		Audio1.attr('src', 'piano/' + now_octave + now_pitch + '.mp3');
 		Audio1[0].play();
+		Audio1[0].currentTime = secMapping[now_octave + now_pitch];
+		clearTimeout(pauseTimeOut);
+		pauseTimeOut = setTimeout(function() {
+			Audio1[0].pause();
+		}, 1800);
 	}
 	if(!isProgressEditing){
 		Progress_range[0].value = now_node + 1;
@@ -313,9 +357,9 @@ function playAudio() {
 
 	now_node++;
 	if (now_node >= length_pitch) {
-		Audio1.one("ended", function() {
+		setTimeout(function() {
 			reset();
-		});
+		}, 1800);
 		return;
 	}
 	timeout = setTimeout("playAudio()", now_time_tempo);
@@ -337,6 +381,7 @@ function continue_play() {
 
 function reset() {
 	clearTimeout(timeout);
+	Audio1[0].pause();
 	now_node = 0;
 	now_volume = "f";
 	now_pitch = "f";
