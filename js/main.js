@@ -199,22 +199,14 @@ var pauseTimeOut;
 for (var i = 0, seek = 2; i < keys.length; i++, seek += 2) {
 	keys.eq(i).attr('data-seek', seek);
 	keys.eq(i).on('click', function() {
-
-
 		if (!isLock) {
 			// 播放音频
 			Audio1[0].play();
 			Audio1[0].currentTime = $(this).attr('data-seek');
-
 			clearTimeout(pauseTimeOut);
-
 			pauseTimeOut = setTimeout(function() {
 				Audio1[0].pause();
-			}, 1800)
-
-
-
-
+			}, 1800);
 			// 写入简谱
 			switch (this.id.substr(0, 1)) {
 				case '0':
@@ -231,7 +223,7 @@ for (var i = 0, seek = 2; i < keys.length; i++, seek += 2) {
 			}
 			Nmn[0].style.height = Nmn[0].scrollHeight + 'px';
 		}
-	})
+	});
 }
 
 // 为有文字的白键添加按下效果（解决IE按在文字div上，白键无active效果的问题）

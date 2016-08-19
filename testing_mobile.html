@@ -3,14 +3,14 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=0.4, maximum-scale=1.0, user-scalable=yes"/>
   <title>SSS-β</title>
   <script src="js/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" href="css/main_mobile.css">
 </head>
 
 <body>
-  <audio id="audio1" src="piano/00.mp3"></audio>
+  <audio id="audio1" src="piano/piano.mp3" preload="auto"></audio>
   <div id="loading">
     <img id="loading_img" src="img/logo.png" />
   </div>
@@ -157,7 +157,6 @@
               </div>
             </div>
             <button class="button white_key rest_key" style="margin-left:172px;margin-top:5px" onclick="$('#nmn').val($('#nmn').val() + '0');">0</button>
-            <div id='tmp'></div>
           </div>
         </div><div class="page">
           <div class="section">
