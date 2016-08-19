@@ -199,21 +199,21 @@ var pauseTimeOut;
 for (var i = 0, seek = 2; i < keys.length; i++, seek += 2) {
 	keys.eq(i).attr('data-seek', seek);
 	keys.eq(i).on('click', function() {
-		
-		
+
+
 		if (!isLock) {
 			// 播放音频
 			Audio1[0].play();
 			Audio1[0].currentTime = $(this).attr('data-seek');
-			
+
 			clearTimeout(pauseTimeOut);
-			
+
 			pauseTimeOut = setTimeout(function() {
 				Audio1[0].pause();
 			}, 1800)
-			
-			
-			
+
+
+
 
 			// 写入简谱
 			switch (this.id.substr(0, 1)) {
@@ -310,9 +310,11 @@ function playAudio() {
 	Audio1[0].volume = parseInt(now_volume, 16) / 15;
 	if (now_pitch.indexOf("f") == -1) {
 		Audio1[0].play();
-		Audio1[0].currentTime(secMapping[now_octave + now_pitch]);
-		console.log(secMapping[now_octave + now_pitch])
-		
+		Audio1[0].currentTime = secMapping[now_octave + now_pitch];
+		clearTimeout(pauseTimeOut);
+		pauseTimeOut = setTimeout(function() {
+			Audio1[0].pause();
+		}, 1800);
 	}
 	if(!isProgressEditing){
 		Progress_range[0].value = now_node + 1;
@@ -363,9 +365,9 @@ function playAudio() {
 
 	now_node++;
 	if (now_node >= length_pitch) {
-		Audio1.one("ended", function() {
+		setTimeout(function() {
 			reset();
-		});
+		}, 1800);
 		return;
 	}
 	timeout = setTimeout("playAudio()", now_time_tempo);
@@ -387,6 +389,7 @@ function continue_play() {
 
 function reset() {
 	clearTimeout(timeout);
+	Audio1[0].pause();
 	now_node = 0;
 	now_volume = "f";
 	now_pitch = "f";
