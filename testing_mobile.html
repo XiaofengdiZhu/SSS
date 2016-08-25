@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=0.4, maximum-scale=1.0, user-scalable=yes"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>SSS-β</title>
   <script src="js/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" href="css/main_mobile.css">
@@ -16,7 +16,7 @@
   </div>
   <div id='wrapper'>
     <div id="background"></div>
-    <div id="mask" onclick="Mask.hide();About.removeClass('about_show');setTimeout(function(){About.hide();},500)"></div>
+    <div id="mask" onclick="Mask.hide();About.removeClass('about_show');Scale_bar.removeClass('scale_bar_show');etTimeout(function(){About.hide();Scale_bar.hide()},500);"></div>
     <div id="about">
       <div class="title" style="text-align:center;padding:20px;">关于</div>
       <div class="section" style="text-align:center;padding:5px;">SSS(A simulator of SoundGenerator in Survivalcraft)是一个生存战争声音产生器的模拟器，通过本工具可以方便地播放、测试、转换、弹奏乐谱。</div>
@@ -28,11 +28,17 @@
       <div class="section" style="text-align:center;padding:5px;"><a href="https://github.com/XiaofengdiZhu/SSS" target="_blank">github.com/XiaofengdiZhu/SSS</a></div>
       <div class="button_md button_flat" style="width:100px;position:absolute;right:10px;bottom:5px;" onclick="Mask.hide();About.removeClass('about_show');setTimeout(function(){About.hide();},500)">关闭</div>
     </div>
+    <div id="scale_bar" onmousedown="isScaleEditing=true" onmouseup="isScaleEditing=false">
+      <input type="range" id="scale_range" min="0.4" max="1.6" step="0.1" defaultValue="1" onchange="$('meta').attr('content','width=device-width,initial-scale=' + this.value + ', minimum-scale=' + this.value + ', maximum-scale=' + this.value + ', user-scalable=no')" style="width:240px;position:absolute;top:50%;left:50%;margin-left:-120px;margin-top:-1.5px;"/>
+    </div>
     <div id="top_bar">
       <img id="page_changer_1" class="page_changer page_changer_active" src="img/page_first.png" onclick="if(now_page==1)change_page()" style="margin-left:-70px;">
       <img id="page_changer_2" class="page_changer" src="img/page_second.png" onclick="if(now_page==0)change_page()" style="margin-left:30px;">
       <img src="img/menu_btn.svg" style="position:absolute;top:50%;margin-top:-12px;right:12px;cursor:pointer;" onclick="Menu.show();Menu.addClass('menu_show');">
-      <div id="menu" onclick="Mask.show();About.show();About.addClass('about_show');">关于</div>
+      <div id="menu">
+        <div onclick="Mask.show();About.show();About.addClass('about_show');">关于</div>
+        <div onclick="Mask.show();Scale_bar.show();Scale_bar.addClass('scale_bar_show');" style="margin-top:10px;">缩放</div>
+      </div>
     </div>
     <div id="second_top_bar">
       <div id="chapter_changer_0" class="chapeter_changer" onclick="if((now_page==0 && now_chapter_in_first==1)||(now_page==1 && now_chapter_in_second==1))change_chapter(0)" style="left:0;">模拟</div>

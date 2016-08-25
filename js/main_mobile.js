@@ -10,6 +10,7 @@ var Chapter_changer_1 = $('#chapter_changer_1');
 var Menu = $('#menu');
 var Mask = $('#mask');
 var About = $('#about');
+var Scale_bar = $('#scale_bar');
 var string_volume = "f";
 var string_pitch = "0";
 var string_octave = "0";
@@ -39,6 +40,7 @@ var Progress_range = $('#progress_range');
 var Progress_range_value = $('#progress_range_value');
 var Progress_range_max = $('#progress_range_max');
 var isProgressEditing = false;
+var isScaleEditing = false;
 var last_mouseDownX = 0;
 
 // loading渐入
@@ -297,6 +299,7 @@ $("body").on("mousedown touchstart", function() {
 });
 
 $("body").on("mouseup touchmove", function() {
+	if(isProgressEditing || isScaleEditing)return;
 	var e = event || window.event;
 	var dx = (e.clientX || e.touches[0].clientX) - last_mouseDownX;
 	if (dx > 10) change_chapter(0);

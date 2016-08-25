@@ -336,7 +336,7 @@ a:link, a:visited {
   margin-top: 8px;
   box-shadow: 0px 1px 3px 1px #606060;
 }
-#progress_range{
+input[type=range]{
   width: 300px;
   background-color: #259b24;
   border-radius: 3px;
@@ -345,14 +345,14 @@ a:link, a:visited {
   outline: none;
   border:none;
 }
-#progress_range::-webkit-slider-thumb{
+input[type=range]::-webkit-slider-thumb{
   -webkit-appearance: none;
   width: 12px;
   height: 12px;
   border-radius: 100%;
   background-color: #259b24;
 }
-#progress_range::-webkit-slider-thumb:hover{
+input[type=range]::-webkit-slider-thumb:hover{
   box-shadow: 0 0 0 2px #259b24;
 }
 #progress_range_value{
@@ -410,5 +410,25 @@ a:link, a:visited {
   -webkit-transition: opacity 0.5s ease;
 }
 .about_show{
+  opacity: 1 !important;
+}
+#scale_bar{
+  display: none;
+  position: fixed;
+  left:50%;
+  top:20%;
+  width: 300px;
+  height: 32px;
+  margin-left:-150px;
+  margin-top: -16px;
+  padding:10px;
+  background-color: white;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .05), 0 1px 4px 0 rgba(0, 0, 0, .08), 0 3px 1px -2px rgba(0, 0, 0, .2);
+  z-index: 100;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  -webkit-transition: opacity 0.5s ease;
+}
+.scale_bar_show{
   opacity: 1 !important;
 }
