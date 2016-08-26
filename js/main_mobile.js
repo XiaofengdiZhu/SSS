@@ -10,6 +10,7 @@ var Chapter_changer_1 = $('#chapter_changer_1');
 var Menu = $('#menu');
 var Mask = $('#mask');
 var About = $('#about');
+var Scale_bar = $('#scale_bar');
 var string_volume = "f";
 var string_pitch = "0";
 var string_octave = "0";
@@ -39,6 +40,7 @@ var Progress_range = $('#progress_range');
 var Progress_range_value = $('#progress_range_value');
 var Progress_range_max = $('#progress_range_max');
 var isProgressEditing = false;
+var isScaleEditing = false;
 var last_mouseDownX = 0;
 
 // loading渐入
@@ -297,6 +299,7 @@ $("body").on("mousedown touchstart", function() {
 });
 
 $("body").on("mouseup touchmove", function() {
+	if(isProgressEditing || isScaleEditing)return;
 	var e = event || window.event;
 	var dx = (e.clientX || e.touches[0].clientX) - last_mouseDownX;
 	if (dx > 10) change_chapter(0);
@@ -407,21 +410,8 @@ function playAudio() {
 
 	// 渐显&飘散
 	setTimeout(function() {
-		var x = Math.round(Math.random() * 240 - 120);
-		var y = Math.round(Math.random() * 240 - 120);
-
-		for (;;) {
-			if (Math.abs(x) < 70) {
-				x = Math.round(Math.random() * 240 - 120);
-			} else if (Math.abs(y) < 70) {
-				y = Math.round(Math.random() * 240 - 120);
-			} else break;
-		}
 		Notes.children('.note:last').css({
 			'opacity': 1,
-			// X&Y轴分别 -120~-70 / 70~120px 随机飘散
-			'transform': 'translate(' + x + 'px, ' + y + 'px)',
-			'-webkit-transform': 'translate(' + x + 'px, ' + y + 'px)'
 		});
 	}, 5);
 
@@ -697,7 +687,7 @@ function showNote(num) {
 		"4": "80,8 80,16 96,16 96,32 104,32 104,56 112,56 112,64 96,64 96,56 88,56 88,32 80,32 80,104 72,104 72,112 48,112 48,104 40,104 40,88 48,88 48,80 64,80 64,8"
 	}
 	var html = '<svg class="note" xmlns="http://www.w3.org/2000/svg" version="1.1"' +
-		'style="margin:' + (Math.round(Math.random() * 80 - 40) - 40) + 'px 0 0 ' + (Math.round(Math.random() * 80 - 40) - 40) + 'px" viewBox="0 0 120 120">' +
+		'style="margin-top:-160px;margin-left:64px;" viewBox="0 0 120 120">' +
 		'<polygon points="' + points[num] + '" style="fill:' + get_AudioColor() + '" /></svg>'
 
 	return html;
