@@ -205,6 +205,7 @@ var keys = $('.keyboard').children('.button');
 var pauseTimeOut;
 for (var i = 0, seek = 2; i < keys.length; i++, seek += 2) {
 	keys.eq(i).attr('data-seek', seek);
+	keys.eq(i).attr('id',Math.floor(i/12) +hex[i%12]);
 	keys.eq(i).on('click', function() {
 		if (!isLock) {
 			// 播放音频
